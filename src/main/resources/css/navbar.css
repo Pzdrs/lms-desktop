@@ -1,10 +1,18 @@
 Button {
     -fx-background-radius: 0;
+    -fx-text-fill: #d6caca;
     -fx-background-color: transparent;
+    -fx-background-insets: 0;
 }
 
 Button:hover {
+    -fx-border-color: #707eff;
     -fx-border-style: hidden hidden solid hidden;
-    -fx-border-color: white;
     -fx-border-width: 3;
+}
+
+#navbar {
+    -fx-border-color: black;
+    -fx-border-style: hidden hidden solid hidden;
+    -fx-border-width: 2;
 }

@@ -4,8 +4,11 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Pair;
+import pb.lms_desktop.dialogs.Login;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class Main extends Application {
     public static Scene scene;

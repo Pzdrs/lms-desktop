@@ -16,9 +16,15 @@ public class CtrlNavbar implements Initializable {
 
     public GridPane container;
     public HBox user, links;
+    public Button dashboard, books, users, profile;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        dashboard.setOnAction(event -> Main.setRoot("dashboard"));
+        books.setOnAction(event -> Main.setRoot("books"));
+        users.setOnAction(event -> Main.setRoot("users"));
+        profile.setOnAction(event -> Main.setRoot("profile"));
+
         isolateButtons().forEach(button -> button.setPrefHeight(container.getPrefHeight()));
 
         container.prefWidthProperty().bind(Main.stage.widthProperty());
