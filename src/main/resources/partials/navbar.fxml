@@ -7,56 +7,55 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.text.Font?>
 
-<GridPane id="navbar" fx:id="container" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="37.0" prefWidth="600.0" style="-fx-background-color: #595959;" stylesheets="@../css/navbar.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pb.lms_desktop.controllers.NavbarController">
-  <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-  </columnConstraints>
-  <rowConstraints>
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-  </rowConstraints>
-   <children>
-      <HBox fx:id="links" alignment="CENTER_LEFT" prefHeight="51.0" prefWidth="280.0" spacing="10.0">
-         <children>
-            <Button fx:id="dashboard" focusTraversable="false" maxWidth="83.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="83.0" text="Dashboard">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin></Button>
-            <Button fx:id="books" focusTraversable="false" maxWidth="57.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="57.0" text="Books">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin></Button>
-            <Button fx:id="users" focusTraversable="false" maxWidth="52.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="52.0" text="Users">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin></Button>
-         </children>
+<GridPane id="navbar" fx:id="container" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="37.0" prefWidth="793.0" style="-fx-background-color: #595959;" stylesheets="@../css/navbar.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pb.lms_desktop.controllers.NavbarController">
+    <columnConstraints>
+        <ColumnConstraints hgrow="ALWAYS" />
+        <ColumnConstraints hgrow="ALWAYS" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints vgrow="SOMETIMES" />
+    </rowConstraints>
+    <children>
+        <HBox fx:id="links" alignment="CENTER_LEFT" spacing="10.0">
+            <children>
+                <Button fx:id="dashboard" focusTraversable="false" mnemonicParsing="false" prefHeight="25.0" prefWidth="83.0" text="Dashboard">
+                    <HBox.margin>
+                        <Insets />
+                    </HBox.margin>
+                </Button>
+                <Button fx:id="books" focusTraversable="false" mnemonicParsing="false" prefHeight="25.0" prefWidth="57.0" text="Books">
+                    <HBox.margin>
+                        <Insets />
+                    </HBox.margin>
+                </Button>
+                <Button fx:id="users" focusTraversable="false" mnemonicParsing="false" prefHeight="25.0" prefWidth="52.0" text="Users">
+                    <HBox.margin>
+                        <Insets />
+                    </HBox.margin>
+                </Button>
+            </children>
+            <GridPane.margin>
+                <Insets left="20.0" />
+            </GridPane.margin>
+        </HBox>
+        <HBox fx:id="user" alignment="CENTER_RIGHT" GridPane.columnIndex="1">
          <GridPane.margin>
-            <Insets left="20.0" />
+            <Insets />
          </GridPane.margin>
-      </HBox>
-      <HBox fx:id="user" alignment="CENTER_RIGHT" prefHeight="46.0" prefWidth="254.0" GridPane.columnIndex="1">
          <children>
-            <Button fx:id="profile" mnemonicParsing="false" prefHeight="123.0" prefWidth="58.0" text="Profile">
+            <Button fx:id="profile" focusTraversable="false" mnemonicParsing="false" prefHeight="25.0" prefWidth="57.0" text="Profile">
                <HBox.margin>
                   <Insets right="10.0" />
-               </HBox.margin></Button>
-            <Label text="Logged in as " textFill="#e4e4e4">
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </Label>
-            <Label text="Administrator" textFill="#e4e4e4">
-               <font>
-                  <Font size="13.0" />
-               </font>
+               </HBox.margin>
+            </Button>
+            <Label text="Logged in as " textFill="WHITE" />
+            <Label text="Administrator" textFill="WHITE">
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
             </Label>
          </children>
-         <GridPane.margin>
-            <Insets right="10.0" />
-         </GridPane.margin>
-      </HBox>
-   </children>
+        </HBox>
+    </children>
 </GridPane>

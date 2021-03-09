@@ -1,10 +1,11 @@
 package pb.lms_desktop.controllers;
 
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
+import javafx.geometry.Insets;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import pb.lms_desktop.Main;
 import pb.lms_desktop.Utils;
 
 import java.net.URL;
@@ -24,6 +25,7 @@ public class Controller implements Initializable {
                 changeContent(button.getId());
             });
         });
+
     }
 
     private void changeContent(String fxml) {

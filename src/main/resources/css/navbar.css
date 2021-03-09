@@ -11,7 +11,7 @@ Button:hover {
     -fx-border-width: 3;
 }
 
-#navbar {
+#navbar{
     -fx-border-color: black;
     -fx-border-style: hidden hidden solid hidden;
     -fx-border-width: 2;

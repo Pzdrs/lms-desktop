@@ -25,10 +25,6 @@ public class NavbarController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         // Make navbar the same width as the window at all times
         container.prefWidthProperty().bind(Main.stage.widthProperty());
-
-        Main.stage.widthProperty().addListener((observable, oldValue, newValue) -> {
-            HBox.setMargin(user, new Insets(0, 0, 0, (Double) newValue - 600));
-        });
     }
 
     public List<Button> isolateButtons() {
