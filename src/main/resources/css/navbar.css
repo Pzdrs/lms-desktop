@@ -16,3 +16,9 @@ Button:hover {
     -fx-border-style: hidden hidden solid hidden;
     -fx-border-width: 2;
 }
+
+.active {
+    -fx-border-color: #707eff;
+    -fx-border-style: hidden hidden solid hidden;
+    -fx-border-width: 3;
+}

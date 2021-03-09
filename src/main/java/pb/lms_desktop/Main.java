@@ -2,6 +2,7 @@ package pb.lms_desktop;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Pair;
@@ -21,7 +22,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         stage = primaryStage;
-        scene = new Scene(Utils.loadFXML("dashboard"), 1280, 720);
+        scene = new Scene(Utils.loadFXML("index"), 1280, 720);
 
         primaryStage.setTitle(References.APP_NAME);
         primaryStage.setScene(scene);
@@ -34,7 +35,7 @@ public class Main extends Application {
     public static void setRoot(String fxml) {
         try {
             scene.setRoot(Utils.loadFXML(fxml));
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
