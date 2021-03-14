@@ -2,16 +2,13 @@ package pb.lms_desktop;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.util.Pair;
-import pb.lms_desktop.dialogs.Login;
+import pb.lms_desktop.store.Store;
 
 import java.io.IOException;
-import java.util.Optional;
 
 public class Main extends Application {
+    private static Store store;
     public static Scene scene;
     public static Stage stage;
 
@@ -38,5 +35,9 @@ public class Main extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static Store getStore() {
+        return store;
     }
 }
