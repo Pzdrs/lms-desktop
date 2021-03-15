@@ -3,18 +3,18 @@ package pb.lms_desktop.store.modules;
 import java.util.Date;
 
 public class Book {
-    private String id, title, isbn;
+    private String id, title, isbn, writtenIn;
     private int pageCount;
     private Author author;
-    private Date writtenIn, createdAt;
+    private Date createdAt;
 
-    public Book(String id, String title, String isbn, int pageCount, Author author, Date writtenIn, Date createdAt) {
+    public Book(String id, String title, String isbn, String writtenIn, int pageCount, Author author, Date createdAt) {
         this.id = id;
         this.title = title;
         this.isbn = isbn;
+        this.writtenIn = writtenIn;
         this.pageCount = pageCount;
         this.author = author;
-        this.writtenIn = writtenIn;
         this.createdAt = createdAt;
     }
 
@@ -30,6 +30,10 @@ public class Book {
         return isbn;
     }
 
+    public String getWrittenIn() {
+        return writtenIn;
+    }
+
     public int getPageCount() {
         return pageCount;
     }
@@ -38,11 +42,20 @@ public class Book {
         return author;
     }
 
-    public Date getWrittenIn() {
-        return writtenIn;
-    }
-
     public Date getCreatedAt() {
         return createdAt;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id='" + id + '\'' +
+                ", title='" + title + '\'' +
+                ", isbn='" + isbn + '\'' +
+                ", pageCount=" + pageCount +
+                ", author=" + author.toString() +
+                ", writtenIn=" + writtenIn +
+                ", createdAt=" + createdAt +
+                '}';
     }
 }

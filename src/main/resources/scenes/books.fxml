@@ -1,11 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <center>
-      <Label text="books" BorderPane.alignment="CENTER" />
-   </center>
+<BorderPane fx:id="container" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="409.0" prefWidth="1098.0" xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="pb.lms_desktop.controllers.BooksController">
+    <center>
+        <!--<Accordion BorderPane.alignment="CENTER">
+          <panes>
+            <TitledPane alignment="TOP_LEFT" text="Book 1 - by Some Youn Guy">
+                 <font>
+                    <Font size="15.0" />
+                 </font>
+                 <content>
+                    <BorderPane prefHeight="200.0" prefWidth="200.0">
+                       <left>
+                          <VBox prefHeight="315.0" prefWidth="86.0" BorderPane.alignment="CENTER">
+                             <children>
+                                <HBox alignment="CENTER" prefHeight="31.0" prefWidth="130.0">
+                                   <children>
+                                      <Label text="Pages: ">
+                                         <font>
+                                            <Font size="15.0" />
+                                         </font>
+                                      </Label>
+                                      <Label text="96" />
+                                   </children>
+                                </HBox>
+                             </children>
+                          </VBox>
+                       </left>
+                       <bottom>
+                          <VBox alignment="CENTER" prefHeight="38.0" prefWidth="362.0" BorderPane.alignment="CENTER">
+                             <children>
+                                <Separator prefWidth="200.0" />
+                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                   <children>
+                                      <Button mnemonicParsing="false" text="Delete this book">
+                                         <graphic>
+                                            <FontAwesomeIconView fill="#c60000" glyphName="TRASH" />
+                                         </graphic>
+                                      </Button>
+                                      <Button mnemonicParsing="false" text="Edit this book">
+                                         <graphic>
+                                            <FontAwesomeIconView fill="#002dff" glyphName="EDIT" />
+                                         </graphic>
+                                      </Button>
+                                   </children>
+                                </HBox>
+                             </children>
+                          </VBox>
+                       </bottom>
+                    </BorderPane>
+                 </content>
+            </TitledPane>
+          </panes>
+        </Accordion>-->
+    </center>
+    <left>
+        <VBox id="navigation" alignment="TOP_CENTER" prefHeight="409.0" prefWidth="143.0" spacing="10.0"
+              style="-fx-background-color: #595959;" stylesheets="@../css/books.css" BorderPane.alignment="CENTER">
+            <children>
+                <Button mnemonicParsing="false" text="Add book">
+                    <graphic>
+                        <FontAwesomeIconView fill="#03a800" glyphName="PLUS" size="15.0"/>
+                    </graphic>
+                </Button>
+            </children>
+            <BorderPane.margin>
+                <Insets/>
+            </BorderPane.margin>
+            <padding>
+                <Insets top="15.0"/>
+            </padding>
+        </VBox>
+    </left>
+    <right>
+        <TitledPane alignment="CENTER" animated="false" collapsible="false" prefHeight="273.0" prefWidth="202.0"
+                    text="Parameters">
+            <content>
+                <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+                    <children>
+                        <TextField fx:id="parameter_filter" promptText="Search"/>
+                        <CheckBox fx:id="parameter_availableOnly" mnemonicParsing="false" text="Available books only"/>
+                    </children>
+                </VBox>
+            </content>
+        </TitledPane>
+    </right>
+    <center>
+        <TableView fx:id="content" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER"/>
+    </center>
 </BorderPane>

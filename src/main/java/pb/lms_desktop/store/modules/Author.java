@@ -38,4 +38,16 @@ public class Author {
     public Date getCreatedAt() {
         return createdAt;
     }
+
+    @Override
+    public String toString() {
+        return "Author{" +
+                "id='" + id + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", born=" + born +
+                ", died=" + died +
+                ", createdAt=" + createdAt +
+                '}';
+    }
 }
