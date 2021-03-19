@@ -1,11 +1,14 @@
 package pb.lms_desktop.store.modules;
 
+import javafx.scene.control.Button;
+
 import java.util.Date;
 
 public class User {
     private String id, username, firstName, lastName, password;
     private boolean isAdmin;
     private Date registeredAt;
+    private Button delete;
 
     public User(String id, String username, String firstName, String lastName, String password, boolean isAdmin, Date registeredAt) {
         this.id = id;
@@ -15,6 +18,7 @@ public class User {
         this.password = password;
         this.isAdmin = isAdmin;
         this.registeredAt = registeredAt;
+        this.delete = new Button("Delete");
     }
 
     public String getId() {

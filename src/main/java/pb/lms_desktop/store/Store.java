@@ -1,25 +1,33 @@
 package pb.lms_desktop.store;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import pb.lms_desktop.store.modules.Author;
 import pb.lms_desktop.store.modules.Book;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 
 public class Store {
-    private List<Book> books;
-    private List<Author> authors;
+    private ObservableList<Book> books;
+    private ObservableList<Author> authors;
 
     public Store() {
-        this.books = new ArrayList<>();
-        this.authors = new ArrayList<>();
+        this.books = FXCollections.observableArrayList();
+        this.authors = FXCollections.observableArrayList();
+
+        books.addAll(new Book("5ff34284af13df0bc05de559", "Harry Potter and the Philosopher's Stone", "0-7475-3269-9", "1998", 309,
+                        new Author("5ff33134af13df0bc05de553", "Joanne", "Rowling", new Date(), new Date(), new Date()), new Date()),
+                new Book("5ff34284af13df0bc05de559", "Harry Potter and the Philosopher's Stone", "0-7475-3269-9", "1998", 309,
+                        new Author("5ff33134af13df0bc05de553", "Joanne", "Rowling", new Date(), new Date(), new Date()), new Date()),
+                new Book("5ff34284af13df0bc05de559", "Harry Potter and the Philosopher's Stone", "0-7475-3269-9", "1998", 309,
+                        new Author("5ff33134af13df0bc05de553", "Joanne", "Rowling", new Date(), new Date(), new Date()), new Date()));
     }
 
-    public List<Book> getBooks() {
+    public ObservableList<Book> getBooks() {
         return books;
     }
 
-    public List<Author> getAuthors() {
+    public ObservableList<Author> getAuthors() {
         return authors;
     }
 }

@@ -8,12 +8,11 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="container" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="409.0" prefWidth="1098.0" xmlns="http://javafx.com/javafx/11.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="pb.lms_desktop.controllers.BooksController">
+<BorderPane fx:id="container" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="409.0" prefWidth="1445.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pb.lms_desktop.controllers.BooksController">
     <center>
         <!--<Accordion BorderPane.alignment="CENTER">
           <panes>
@@ -67,37 +66,45 @@
         </Accordion>-->
     </center>
     <left>
-        <VBox id="navigation" alignment="TOP_CENTER" prefHeight="409.0" prefWidth="143.0" spacing="10.0"
-              style="-fx-background-color: #595959;" stylesheets="@../css/books.css" BorderPane.alignment="CENTER">
+        <VBox id="navigation" alignment="TOP_CENTER" prefHeight="409.0" prefWidth="143.0" spacing="10.0" style="-fx-background-color: #595959;" stylesheets="@../css/books.css" BorderPane.alignment="CENTER">
             <children>
                 <Button mnemonicParsing="false" text="Add book">
                     <graphic>
-                        <FontAwesomeIconView fill="#03a800" glyphName="PLUS" size="15.0"/>
+                        <FontAwesomeIconView fill="#03a800" glyphName="PLUS" size="15.0" />
                     </graphic>
                 </Button>
             </children>
             <BorderPane.margin>
-                <Insets/>
+                <Insets />
             </BorderPane.margin>
             <padding>
-                <Insets top="15.0"/>
+                <Insets top="15.0" />
             </padding>
         </VBox>
     </left>
     <right>
-        <TitledPane alignment="CENTER" animated="false" collapsible="false" prefHeight="273.0" prefWidth="202.0"
-                    text="Parameters">
+        <TitledPane alignment="CENTER" animated="false" collapsible="false" prefHeight="273.0" prefWidth="202.0" text="Parameters">
             <content>
                 <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
                     <children>
-                        <TextField fx:id="parameter_filter" promptText="Search"/>
-                        <CheckBox fx:id="parameter_availableOnly" mnemonicParsing="false" text="Available books only"/>
+                        <TextField fx:id="parameter_filter" promptText="Search" />
+                        <CheckBox fx:id="parameter_availableOnly" mnemonicParsing="false" text="Available books only" />
                     </children>
                 </VBox>
             </content>
         </TitledPane>
     </right>
     <center>
-        <TableView fx:id="content" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER"/>
+        <TableView fx:id="books" prefHeight="409.0" prefWidth="1101.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <columns>
+                <TableColumn fx:id="id" prefWidth="175.0" text="ID" />
+                <TableColumn fx:id="isbn" minWidth="0.0" prefWidth="110.0" text="ISBN" />
+                <TableColumn fx:id="title" prefWidth="291.0" text="Title" />
+                <TableColumn fx:id="pages" minWidth="0.0" prefWidth="82.0" text="Page count" />
+                <TableColumn fx:id="author" prefWidth="185.0" text="Author" />
+                <TableColumn fx:id="writtenIn" prefWidth="93.0" text="Year of writing" />
+                <TableColumn fx:id="actions" prefWidth="163.0" text="Actions" />
+            </columns>
+        </TableView>
     </center>
 </BorderPane>
