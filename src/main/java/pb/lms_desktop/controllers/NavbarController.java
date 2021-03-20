@@ -6,6 +6,7 @@ import javafx.beans.property.StringProperty;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import pb.lms_desktop.Main;
@@ -20,6 +21,7 @@ public class NavbarController implements Initializable {
     public HBox user, links;
     public Button dashboard, books, users, profile;
     public GridPane container;
+    public Label loggedInStatus, username;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

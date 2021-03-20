@@ -1,15 +1,23 @@
 package pb.lms_desktop.dialogs;
 
 import javafx.beans.binding.Bindings;
+import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Pair;
+import org.json.JSONObject;
+import pb.lms_desktop.Main;
 import pb.lms_desktop.References;
+import pb.lms_desktop.store.modules.User;
+
+import java.time.LocalDateTime;
+import java.util.Date;
 
 public class Login extends Dialog<Pair<String, String>> {
     private TextField username;
     private PasswordField password;
+    private Label usernameLabel, passwordLabel, resultLabel;
 
     public Login(Stage primaryStage) {
         init();
@@ -26,10 +34,11 @@ public class Login extends Dialog<Pair<String, String>> {
         this.username = new TextField();
         this.password = new PasswordField();
 
-        Label usernameLabel = new Label("Username");
-        Label passwordLabel = new Label("Password");
+        this.usernameLabel = new Label("Username");
+        this.passwordLabel = new Label("Password");
+        this.resultLabel = new Label();
 
-        // Label's  stay
+        resultLabel.setStyle("-fx-background-radius: 5px; -fx-label-padding: 5px; -fx-background-color: #feecf0");
         usernameLabel.setStyle("-fx-font-weight: bold");
         passwordLabel.setStyle("-fx-font-weight: bold");
 
@@ -37,22 +46,59 @@ public class Login extends Dialog<Pair<String, String>> {
         ButtonType exitButton = new ButtonType("Exit", ButtonBar.ButtonData.CANCEL_CLOSE);
 
         // Container's initial setup
-        VBox container = new VBox(usernameLabel, username, passwordLabel, password);
+        VBox container = new VBox(resultLabel, usernameLabel, username, passwordLabel, password);
         container.setPrefSize(500, 200);
 
         getDialogPane().getButtonTypes().addAll(loginButton, exitButton);
 
         // Make sure that both fields are not empty when clicking the Login button
-        getDialogPane().lookupButton(loginButton).disableProperty()
-                .bind(Bindings.createBooleanBinding(
-                        () -> username.getText().trim().isEmpty() || password.getText().trim().isEmpty(),
-                        username.textProperty(),
-                        password.textProperty()));
+        Button lookedUpButton = (Button) getDialogPane().lookupButton(loginButton);
+
+        lookedUpButton.addEventFilter(ActionEvent.ACTION, event -> {
+            if (!auth()) event.consume();
+        });
+        lookedUpButton.disableProperty()
+                .bind(Bindings.createBooleanBinding(() -> username.getText().trim().isEmpty(), username.textProperty()));
 
         getDialogPane().setContent(container);
 
         // Make sure that user can start typing in their credentials right away
         username.requestFocus();
+    }
+
+    private boolean auth() {
+        Pair<Integer, String> response = Main.getApi().login(username.getText(), formatPassword(password.getText()));
+        if (response.getKey() == 200) {
+            JSONObject user = new JSONObject(response.getValue()).getJSONObject("user");
+            if (isAdmin(user)) {
+                // TODO: 3/20/2021 put the real date in
+                Main.getStore().setUser(new User(
+                        user.getString("_id"),
+                        user.getString("username"),
+                        user.getString("email"),
+                        user.getString("firstName"),
+                        user.getString("lastName"),
+                        user.getString("password"),
+                        user.getBoolean("isAdmin"),
+                        new Date()
+                ));
+            }
+            resultLabel.setText("You need to be an administrator to access this application");
+            return false;
+        }
+        resultLabel.setText(new JSONObject(response.getValue()).getString("message"));
+        return false;
+    }
+
+    private String formatPassword(String password) {
+        if (password.equals("")) {
+            return " ";
+        }
+        return password;
+    }
+
+    private boolean isAdmin(JSONObject user) {
+        return true;
     }
 
     /**

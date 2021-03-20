@@ -2,12 +2,15 @@ package pb.lms_desktop.store;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import pb.lms_desktop.Main;
 import pb.lms_desktop.store.modules.Author;
 import pb.lms_desktop.store.modules.Book;
+import pb.lms_desktop.store.modules.User;
 
 import java.util.Date;
 
 public class Store {
+    private User user;
     private ObservableList<Book> books;
     private ObservableList<Author> authors;
 
@@ -29,5 +32,14 @@ public class Store {
 
     public ObservableList<Author> getAuthors() {
         return authors;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+        Main.getController().navbarController.loggedInStatus.setText(user == null ? "Not logged in" : "Logged in as ");
+    }
+
+    public User getUser() {
+        return user;
     }
 }

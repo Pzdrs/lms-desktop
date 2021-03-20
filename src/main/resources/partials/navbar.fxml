@@ -49,8 +49,8 @@
                   <Insets right="10.0" />
                </HBox.margin>
             </Button>
-            <Label text="Logged in as " textFill="WHITE" />
-            <Label text="Administrator" textFill="WHITE">
+            <Label fx:id="loggedInStatus" text="Not logged in" textFill="WHITE" />
+            <Label fx:id="username" textFill="WHITE">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>

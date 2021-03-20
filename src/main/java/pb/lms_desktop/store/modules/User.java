@@ -1,47 +1,84 @@
 package pb.lms_desktop.store.modules;
 
-import javafx.scene.control.Button;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import pb.lms_desktop.Main;
 
 import java.util.Date;
 
 public class User {
-    private String id, username, firstName, lastName, password;
-    private boolean isAdmin;
+    private StringProperty id, username, email, firstName, lastName, password;
+    private BooleanProperty isAdmin;
     private Date registeredAt;
-    private Button delete;
 
-    public User(String id, String username, String firstName, String lastName, String password, boolean isAdmin, Date registeredAt) {
-        this.id = id;
-        this.username = username;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.password = password;
-        this.isAdmin = isAdmin;
+    public User(String id, String username, String email, String firstName, String lastName, String password, boolean isAdmin, Date registeredAt) {
+        this.id = new SimpleStringProperty(id);
+        this.username = new SimpleStringProperty(username);
+        this.email = new SimpleStringProperty(email);
+        this.firstName = new SimpleStringProperty(firstName);
+        this.lastName = new SimpleStringProperty(lastName);
+        this.password = new SimpleStringProperty(password);
+        this.isAdmin = new SimpleBooleanProperty(isAdmin);
         this.registeredAt = registeredAt;
-        this.delete = new Button("Delete");
+
+        Main.getController().navbarController.username.textProperty().bind(usernameProperty());
     }
 
     public String getId() {
+        return id.get();
+    }
+
+    public StringProperty idProperty() {
         return id;
     }
 
     public String getUsername() {
+        return username.get();
+    }
+
+    public StringProperty usernameProperty() {
         return username;
     }
 
+    public String getEmail() {
+        return email.get();
+    }
+
+    public StringProperty emailProperty() {
+        return email;
+    }
+
     public String getFirstName() {
+        return firstName.get();
+    }
+
+    public StringProperty firstNameProperty() {
         return firstName;
     }
 
     public String getLastName() {
+        return lastName.get();
+    }
+
+    public StringProperty lastNameProperty() {
         return lastName;
     }
 
     public String getPassword() {
+        return password.get();
+    }
+
+    public StringProperty passwordProperty() {
         return password;
     }
 
-    public boolean isAdmin() {
+    public boolean isIsAdmin() {
+        return isAdmin.get();
+    }
+
+    public BooleanProperty isAdminProperty() {
         return isAdmin;
     }
 
