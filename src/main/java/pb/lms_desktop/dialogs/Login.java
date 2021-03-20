@@ -12,6 +12,8 @@ import pb.lms_desktop.References;
 import pb.lms_desktop.store.modules.User;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.Date;
 
 public class Login extends Dialog<Pair<String, String>> {
@@ -71,7 +73,8 @@ public class Login extends Dialog<Pair<String, String>> {
         if (response.getKey() == 200) {
             JSONObject user = new JSONObject(response.getValue()).getJSONObject("user");
             if (isAdmin(user)) {
-                // TODO: 3/20/2021 put the real date in
+                LocalDateTime ldt = LocalDateTime.parse(user.getString("registeredAt").split("\\.")[0]);
+                Date date = new Date(ldt.toEpochSecond(ZoneOffset.ofHours(1)) * 1000);
                 Main.getStore().setUser(new User(
                         user.getString("_id"),
                         user.getString("username"),
@@ -80,7 +83,7 @@ public class Login extends Dialog<Pair<String, String>> {
                         user.getString("lastName"),
                         user.getString("password"),
                         user.getBoolean("isAdmin"),
-                        new Date()
+                        date
                 ));
                 return true;
             }
