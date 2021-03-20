@@ -82,6 +82,7 @@ public class Login extends Dialog<Pair<String, String>> {
                         user.getBoolean("isAdmin"),
                         new Date()
                 ));
+                return true;
             }
             resultLabel.setText("You need to be an administrator to access this application");
             return false;
@@ -98,7 +99,7 @@ public class Login extends Dialog<Pair<String, String>> {
     }
 
     private boolean isAdmin(JSONObject user) {
-        return true;
+        return user.getBoolean("isAdmin");
     }
 
     /**
