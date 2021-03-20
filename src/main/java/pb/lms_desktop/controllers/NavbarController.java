@@ -1,10 +1,6 @@
 package pb.lms_desktop.controllers;
 
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -12,9 +8,10 @@ import javafx.scene.layout.HBox;
 import pb.lms_desktop.Main;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 public class NavbarController implements Initializable {
 
@@ -30,10 +27,6 @@ public class NavbarController implements Initializable {
     }
 
     public List<Button> isolateButtons() {
-        return links.getChildren()
-                .stream()
-                .filter(node -> node instanceof Button)
-                .map(node -> (Button) node)
-                .collect(Collectors.toList());
+        return new ArrayList<>(Arrays.asList(dashboard, books, users, profile));
     }
 }

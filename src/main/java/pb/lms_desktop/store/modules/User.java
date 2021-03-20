@@ -9,7 +9,7 @@ import pb.lms_desktop.Main;
 import java.util.Date;
 
 public class User {
-    private StringProperty accessToken, id, username, email, firstName, lastName, password;
+    private StringProperty accessToken, id, username, email, firstName, lastName, fullName, password;
     private BooleanProperty isAdmin;
     private Date registeredAt;
 
@@ -20,11 +20,20 @@ public class User {
         this.email = new SimpleStringProperty(email);
         this.firstName = new SimpleStringProperty(firstName);
         this.lastName = new SimpleStringProperty(lastName);
+        this.fullName = new SimpleStringProperty(firstName + " " + lastName);
         this.password = new SimpleStringProperty(password);
         this.isAdmin = new SimpleBooleanProperty(isAdmin);
         this.registeredAt = registeredAt;
 
         Main.getController().navbarController.username.textProperty().bind(usernameProperty());
+    }
+
+    public String getFullName() {
+        return fullName.get();
+    }
+
+    public StringProperty fullNameProperty() {
+        return fullName;
     }
 
     public String getAccessToken() {
@@ -93,5 +102,20 @@ public class User {
 
     public Date getRegisteredAt() {
         return registeredAt;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "accessToken=" + accessToken +
+                ", id=" + id +
+                ", username=" + username +
+                ", email=" + email +
+                ", firstName=" + firstName +
+                ", lastName=" + lastName +
+                ", password=" + password +
+                ", isAdmin=" + isAdmin +
+                ", registeredAt=" + registeredAt +
+                '}';
     }
 }

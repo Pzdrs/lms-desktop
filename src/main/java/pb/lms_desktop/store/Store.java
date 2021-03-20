@@ -42,4 +42,10 @@ public class Store {
     public User getUser() {
         return user;
     }
+
+    public static class Actions {
+        public static void doShit() {
+            System.out.println("shit");
+        }
+    }
 }

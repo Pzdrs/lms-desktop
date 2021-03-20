@@ -28,7 +28,7 @@ public class Controller implements Initializable {
 
     }
 
-    private void changeContent(String fxml) {
+    public void changeContent(String fxml) {
         try {
             content.getChildren().clear();
             content.getChildren().add(Utils.loadFXML(fxml));

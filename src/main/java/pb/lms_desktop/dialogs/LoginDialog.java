@@ -15,12 +15,12 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Date;
 
-public class Login extends Dialog<Pair<String, String>> {
+public class LoginDialog extends Dialog<Pair<String, String>> {
     private TextField username;
     private PasswordField password;
     private Label usernameLabel, passwordLabel, resultLabel;
 
-    public Login(Stage primaryStage) {
+    public LoginDialog(Stage primaryStage) {
         init();
         setupConvertor(primaryStage);
     }
@@ -73,7 +73,6 @@ public class Login extends Dialog<Pair<String, String>> {
             JSONObject user = new JSONObject(response.getValue()).getJSONObject("user");
             if (isAdmin(user)) {
                 LocalDateTime ldt = LocalDateTime.parse(user.getString("registeredAt").split("\\.")[0]);
-                Date date = new Date(ldt.toEpochSecond(ZoneOffset.ofHours(1)) * 1000);
                 Main.getStore().setUser(new User(
                         new JSONObject(response.getValue()).getString("token"),
                         user.getString("_id"),
@@ -83,7 +82,7 @@ public class Login extends Dialog<Pair<String, String>> {
                         user.getString("lastName"),
                         user.getString("password"),
                         user.getBoolean("isAdmin"),
-                        date
+                        new Date(ldt.toEpochSecond(ZoneOffset.ofHours(1)) * 1000)
                 ));
                 return true;
             }

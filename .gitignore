@@ -32,3 +32,5 @@ buildNumber.properties
 *.rar
 
 hs_err_pid*
+
+src/main/java/pb/lms_desktop/dialogs/DevLoginDialog.java

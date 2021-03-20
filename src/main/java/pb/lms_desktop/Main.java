@@ -5,7 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import pb.lms_desktop.controllers.Controller;
-import pb.lms_desktop.dialogs.Login;
+import pb.lms_desktop.dialogs.LoginDialog;
 import pb.lms_desktop.store.Store;
 
 import java.io.IOException;
@@ -37,7 +37,10 @@ public class Main extends Application {
         primaryStage.show();
 
         // Sign in dialog
-        new Login(primaryStage).showAndWait();
+        new LoginDialog(primaryStage).showAndWait();
+
+        // Default tab
+        controller.changeContent("dashboard");
     }
 
     public static Store getStore() {
