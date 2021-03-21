@@ -52,6 +52,8 @@ public class LoginDialog extends Dialog<Pair<Boolean, Pair<String, String>>> {
         this.passwordLabel = new Label("Password");
         this.resultLabel = new Label();
 
+        resultLabel.visibleProperty().bind(Bindings.createBooleanBinding(() -> !resultLabel.getText().equals(""), resultLabel.textProperty()));
+
         resultLabel.setStyle("-fx-background-radius: 5px; -fx-label-padding: 5px; -fx-background-color: #feecf0");
         usernameLabel.setStyle("-fx-font-weight: bold");
         passwordLabel.setStyle("-fx-font-weight: bold");
