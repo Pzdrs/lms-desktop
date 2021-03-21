@@ -130,6 +130,7 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName.set(lastName);
+        this.fullName.setValue(this.firstName.get() + " " + lastName);
     }
 
     public void setFullName(String fullName) {

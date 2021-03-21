@@ -12,7 +12,7 @@ public class ChangeLastNameDialog extends Dialog<String> {
 
     public ChangeLastNameDialog() {
         init();
-        setResultConverter(result -> lastName.getText().equals("") ? null : lastName.getText());
+        setResultConverter(result -> !lastName.getText().equals("") && result.getButtonData().equals(ButtonBar.ButtonData.OK_DONE) ? lastName.getText() : null);
     }
 
     private void init() {

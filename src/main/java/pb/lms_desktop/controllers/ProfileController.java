@@ -5,7 +5,9 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.util.Pair;
@@ -13,6 +15,7 @@ import pb.lms_desktop.Main;
 import pb.lms_desktop.dialogs.ChangeFirstNameDialog;
 import pb.lms_desktop.dialogs.ChangeLastNameDialog;
 import pb.lms_desktop.store.modules.User;
+import sun.font.BidiUtils;
 
 import java.io.IOException;
 import java.net.URL;
@@ -23,6 +26,8 @@ public class ProfileController implements Initializable {
     public VBox container, danger;
     public Label fullName, rank, registeredAt;
     public TextField email, firstName, lastName;
+    public PasswordField oldPassword, newPassword, newPasswordConfirm;
+    public Button changePassword;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -45,6 +50,14 @@ public class ProfileController implements Initializable {
 
         email.textProperty().bind(user.emailProperty());
         registeredAt.textProperty().bind(new SimpleStringProperty(user.getRegisteredAt().toString()));
+
+        // Making sure change pass button is disabled while old pass is incorrect and new passwords dont match
+        changePassword.disableProperty().bind(Bindings.createBooleanBinding(
+                () -> !Main.getStore().getUser().getPassword().equals(oldPassword.getText())
+                        && newPassword.getText().equals(newPasswordConfirm.getText()),
+                oldPassword.textProperty(),
+                newPassword.textProperty(),
+                newPasswordConfirm.textProperty()));
     }
 
     public void changeFirstName() {
@@ -64,12 +77,23 @@ public class ProfileController implements Initializable {
     }
 
     public void changeLastName() {
-        Optional<String> result = new ChangeLastNameDialog().showAndWait();
-        if (!result.isPresent()) return;
-        // TODO: 3/21/2021 change last name using api
+        Optional<String> lastNameDialog = new ChangeLastNameDialog().showAndWait();
+        if (!lastNameDialog.isPresent()) return;
+        try {
+            Pair<Integer, String> result = Main.getApi().changeUserProperty("lastName", lastNameDialog.get());
+            if (result.getKey() != 200) {
+                System.out.println(result.getValue());
+                return;
+            }
+            Main.getStore().getUser().setLastName(lastNameDialog.get());
+        } catch (IOException e) {
+            e.printStackTrace();
+            // error dialog
+        }
     }
 
     public void changePassword() {
+        // TODO: 3/21/2021 get bcrypt in here
     }
 
     public void logout() {

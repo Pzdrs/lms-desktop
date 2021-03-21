@@ -12,7 +12,7 @@ public class ChangeFirstNameDialog extends Dialog<String> {
 
     public ChangeFirstNameDialog() {
         init();
-        setResultConverter(result -> firstName.getText().equals("") ? null : firstName.getText());
+        setResultConverter(result -> !firstName.getText().equals("") && result.getButtonData().equals(ButtonBar.ButtonData.OK_DONE) ? firstName.getText() : null);
     }
 
     private void init() {
@@ -23,8 +23,9 @@ public class ChangeFirstNameDialog extends Dialog<String> {
         firstName.setPromptText("e.g. John");
 
         ButtonType done = new ButtonType("Done", ButtonBar.ButtonData.OK_DONE);
+        ButtonType cancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
 
-        getDialogPane().getButtonTypes().addAll(done);
+        getDialogPane().getButtonTypes().addAll(done, cancel);
 
         getDialogPane().lookupButton(done).disableProperty().bind(Bindings.createBooleanBinding(() -> firstName.getText().equals(""), firstName.textProperty()));
 
