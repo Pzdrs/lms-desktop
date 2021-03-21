@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import pb.lms_desktop.Main;
 import pb.lms_desktop.dialogs.ChangeFirstNameDialog;
+import pb.lms_desktop.dialogs.ChangeLastNameDialog;
 import pb.lms_desktop.store.modules.User;
 
 import java.net.URL;
@@ -35,6 +36,11 @@ public class ProfileController implements Initializable {
         Optional<String> result = new ChangeFirstNameDialog().showAndWait();
         if (!result.isPresent()) return;
         // TODO: 3/21/2021 change first name using api
-        System.out.println("");
+    }
+
+    public void changeLastName() {
+        Optional<String> result = new ChangeLastNameDialog().showAndWait();
+        if (!result.isPresent()) return;
+        // TODO: 3/21/2021 change last name using api
     }
 }
