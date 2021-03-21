@@ -5,11 +5,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Pair;
+import org.apache.http.HttpHeaders;
+import org.apache.http.message.BasicHeader;
 import pb.lms_desktop.controllers.Controller;
 import pb.lms_desktop.dialogs.LoginDialog;
 import pb.lms_desktop.store.Store;
 
-import java.io.IOException;
 import java.util.Optional;
 
 public class Main extends Application {

@@ -4,6 +4,8 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import org.apache.http.HttpHeaders;
+import org.apache.http.message.BasicHeader;
 import pb.lms_desktop.Main;
 
 import java.util.Date;
@@ -26,6 +28,7 @@ public class User {
         this.registeredAt = registeredAt;
 
         Main.getController().navbarController.username.textProperty().bind(usernameProperty());
+        Main.getApi().setHeaders(new BasicHeader(HttpHeaders.AUTHORIZATION, accessToken));
     }
 
     public String getFullName() {
@@ -102,6 +105,47 @@ public class User {
 
     public Date getRegisteredAt() {
         return registeredAt;
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken.set(accessToken);
+    }
+
+    public void setId(String id) {
+        this.id.set(id);
+    }
+
+    public void setUsername(String username) {
+        this.username.set(username);
+    }
+
+    public void setEmail(String email) {
+        this.email.set(email);
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName.set(firstName);
+        this.fullName.setValue(firstName + " " + this.lastName.get());
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName.set(lastName);
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName.set(fullName);
+    }
+
+    public void setPassword(String password) {
+        this.password.set(password);
+    }
+
+    public void setIsAdmin(boolean isAdmin) {
+        this.isAdmin.set(isAdmin);
+    }
+
+    public void setRegisteredAt(Date registeredAt) {
+        this.registeredAt = registeredAt;
     }
 
     @Override

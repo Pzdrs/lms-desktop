@@ -1,12 +1,15 @@
 package pb.lms_desktop;
 
 import javafx.util.Pair;
-import jdk.internal.util.xml.impl.Input;
+import org.apache.http.Header;
+import org.apache.http.HttpHeaders;
+import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.*;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 
 import java.io.BufferedReader;
@@ -16,14 +19,19 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class API {
-    private String baseURL;
     private HttpClient client;
+    private String baseURL;
 
     public API(String baseURL) {
         this.baseURL = baseURL;
-        this.client = HttpClientBuilder.create().build();
+        this.client = HttpClients.createDefault();
+    }
+
+    public void setHeaders(Header... headers) {
+        this.client = HttpClients.custom().setDefaultHeaders(Arrays.asList(headers)).build();
     }
 
     public HttpResponse get(String s) throws IOException {
@@ -44,8 +52,15 @@ public class API {
         return client.execute(new HttpPut(baseURL + s));
     }
 
-    public HttpResponse patch(String s) throws IOException {
-        return client.execute(new HttpPatch(baseURL + s));
+    public HttpResponse patch(String s, BasicNameValuePair... data) throws IOException {
+        HttpPatch req = new HttpPatch(baseURL + s);
+        req.setEntity(new UrlEncodedFormEntity(new ArrayList<>(Arrays.asList(data)), StandardCharsets.UTF_8));
+        return client.execute(req);
+    }
+
+    public Pair<Integer, String> changeUserProperty(String key, String value) throws IOException {
+        HttpResponse response = patch("/users/" + Main.getStore().getUser().getId(), new BasicNameValuePair(key, value));
+        return new Pair<>(response.getStatusLine().getStatusCode(), asText(response.getEntity().getContent()));
     }
 
     public Pair<Integer, String> login(String username, String password) {

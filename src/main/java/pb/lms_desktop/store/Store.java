@@ -2,6 +2,8 @@ package pb.lms_desktop.store;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.apache.http.HttpHeaders;
+import org.apache.http.message.BasicHeader;
 import pb.lms_desktop.Main;
 import pb.lms_desktop.store.modules.Author;
 import pb.lms_desktop.store.modules.Book;
@@ -36,6 +38,7 @@ public class Store {
 
     public void setUser(User user) {
         this.user = user;
+
         Main.getController().navbarController.loggedInStatus.setText(user == null ? "Not logged in" : "Logged in as ");
     }
 

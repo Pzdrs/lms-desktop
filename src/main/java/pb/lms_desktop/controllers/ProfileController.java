@@ -8,11 +8,13 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.util.Pair;
 import pb.lms_desktop.Main;
 import pb.lms_desktop.dialogs.ChangeFirstNameDialog;
 import pb.lms_desktop.dialogs.ChangeLastNameDialog;
 import pb.lms_desktop.store.modules.User;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -46,9 +48,19 @@ public class ProfileController implements Initializable {
     }
 
     public void changeFirstName() {
-        Optional<String> result = new ChangeFirstNameDialog().showAndWait();
-        if (!result.isPresent()) return;
-        // TODO: 3/21/2021 change first name using api
+        Optional<String> firstNameDialog = new ChangeFirstNameDialog().showAndWait();
+        if (!firstNameDialog.isPresent()) return;
+        try {
+            Pair<Integer, String> result = Main.getApi().changeUserProperty("firstName", firstNameDialog.get());
+            if (result.getKey() != 200) {
+                System.out.println(result.getValue());
+                return;
+            }
+            Main.getStore().getUser().setFirstName(firstNameDialog.get());
+        } catch (IOException e) {
+            e.printStackTrace();
+            // error dialog
+        }
     }
 
     public void changeLastName() {

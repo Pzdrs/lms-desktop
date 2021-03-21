@@ -21,8 +21,6 @@ public class NavbarController implements Initializable {
     public GridPane container;
     public Label loggedInStatus, username;
 
-    private String activeTab;
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Make navbar the same width as the window at all times

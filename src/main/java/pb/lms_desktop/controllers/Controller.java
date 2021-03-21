@@ -1,12 +1,8 @@
 package pb.lms_desktop.controllers;
 
-import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import pb.lms_desktop.Main;
 import pb.lms_desktop.Utils;
 
 import java.net.URL;
@@ -28,7 +24,6 @@ public class Controller implements Initializable {
                 changeContent(button.getId());
             });
         });
-
     }
 
     public void changeContent(String fxml) {
