@@ -21,6 +21,7 @@
          </font>
       </Label>
       <Button mnemonicParsing="false" onAction="#changeFirstName" text="Change first name" />
+      <Button mnemonicParsing="false" onAction="#changeLastName" text="Change last name" />
       <Label fx:id="rank" text="Rank">
          <font>
             <Font size="20.0" />

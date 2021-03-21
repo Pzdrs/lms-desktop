@@ -20,7 +20,7 @@ public class ChangeFirstNameDialog extends Dialog<String> {
         setHeaderText("Use the text field below to change your first name");
 
         this.firstName = new TextField();
-        firstName.setPromptText("e.g. John Doe");
+        firstName.setPromptText("e.g. John");
 
         ButtonType done = new ButtonType("Done", ButtonBar.ButtonData.OK_DONE);
 
