@@ -8,59 +8,51 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane id="navbar" fx:id="container" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity"
-          minHeight="-Infinity" minWidth="-Infinity" prefHeight="37.0" prefWidth="793.0"
-          style="-fx-background-color: #595959;" stylesheets="@../css/navbar.css"
-          xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="pb.lms_desktop.controllers.NavbarController">
+<GridPane id="navbar" fx:id="container" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="37.0" prefWidth="793.0" style="-fx-background-color: #595959;" stylesheets="@../css/navbar.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pb.lms_desktop.controllers.NavbarController">
     <columnConstraints>
-        <ColumnConstraints hgrow="ALWAYS"/>
-        <ColumnConstraints hgrow="ALWAYS"/>
+        <ColumnConstraints hgrow="ALWAYS" />
+        <ColumnConstraints hgrow="ALWAYS" />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints vgrow="SOMETIMES"/>
+        <RowConstraints vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
         <HBox fx:id="links" alignment="CENTER_LEFT" spacing="10.0">
             <children>
-                <Button fx:id="dashboard" focusTraversable="false" mnemonicParsing="false" prefHeight="25.0"
-                        prefWidth="83.0" text="Dashboard">
+                <Button fx:id="dashboard" focusTraversable="false" mnemonicParsing="false" prefHeight="25.0" prefWidth="83.0" text="Dashboard">
                     <HBox.margin>
-                        <Insets/>
+                        <Insets />
                     </HBox.margin>
                 </Button>
-                <Button fx:id="books" focusTraversable="false" mnemonicParsing="false" prefHeight="25.0"
-                        prefWidth="57.0" text="Books">
+                <Button fx:id="books" focusTraversable="false" mnemonicParsing="false" prefHeight="25.0" prefWidth="57.0" text="Books">
                     <HBox.margin>
-                        <Insets/>
+                        <Insets />
                     </HBox.margin>
                 </Button>
-                <Button fx:id="users" focusTraversable="false" mnemonicParsing="false" prefHeight="25.0"
-                        prefWidth="52.0" text="Users">
+                <Button fx:id="users" focusTraversable="false" mnemonicParsing="false" prefHeight="25.0" prefWidth="52.0" text="Users">
                     <HBox.margin>
-                        <Insets/>
+                        <Insets />
                     </HBox.margin>
                 </Button>
             </children>
             <GridPane.margin>
-                <Insets left="20.0"/>
+                <Insets left="20.0" />
             </GridPane.margin>
         </HBox>
         <HBox fx:id="user" alignment="CENTER_RIGHT" GridPane.columnIndex="1">
             <GridPane.margin>
-                <Insets/>
+                <Insets />
             </GridPane.margin>
             <children>
-                <Button fx:id="profile" focusTraversable="false" mnemonicParsing="false" prefHeight="25.0"
-                        prefWidth="57.0" text="Profile">
+                <Button fx:id="profile" focusTraversable="false" mnemonicParsing="false" prefHeight="25.0" prefWidth="57.0" text="Profile">
                     <HBox.margin>
-                        <Insets right="10.0"/>
+                        <Insets right="10.0" />
                     </HBox.margin>
                 </Button>
-                <Label fx:id="loggedInStatus" text="Not logged in" textFill="WHITE"/>
+                <Label fx:id="loggedInStatus" text="Not logged in" textFill="WHITE" />
                 <Label fx:id="username" textFill="WHITE">
                     <HBox.margin>
-                        <Insets right="20.0"/>
+                        <Insets right="20.0" />
                     </HBox.margin>
                 </Label>
             </children>

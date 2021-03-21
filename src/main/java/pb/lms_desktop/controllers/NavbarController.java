@@ -1,5 +1,6 @@
 package pb.lms_desktop.controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,6 +20,8 @@ public class NavbarController implements Initializable {
     public Button dashboard, books, users, profile;
     public GridPane container;
     public Label loggedInStatus, username;
+
+    private String activeTab;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

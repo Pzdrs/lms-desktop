@@ -1,5 +1,6 @@
 package pb.lms_desktop.controllers;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.layout.HBox;
@@ -17,6 +18,8 @@ public class Controller implements Initializable {
     public VBox container;
     public Pane content;
 
+    private String activeTab;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         navbarController.isolateButtons().forEach(button -> {
@@ -30,10 +33,23 @@ public class Controller implements Initializable {
 
     public void changeContent(String fxml) {
         try {
+            activeTab = fxml;
+            setupActiveLinks();
+
             content.getChildren().clear();
             content.getChildren().add(Utils.loadFXML(fxml));
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void setupActiveLinks() {
+        navbarController.isolateButtons().forEach(button -> {
+            if (activeTab.equals(button.getId())) {
+                button.getStyleClass().add("active");
+            } else {
+                button.getStyleClass().removeIf(s -> s.equals("active"));
+            }
+        });
     }
 }
