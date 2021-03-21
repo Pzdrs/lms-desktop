@@ -1,0 +1,4 @@
+.editGlyph:hover {
+    -fx-cursor: hand;
+    -fx-fill: #5e82ff;
+}
