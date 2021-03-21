@@ -1,39 +1,105 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<VBox fx:id="container" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pb.lms_desktop.controllers.ProfileController">
+<VBox fx:id="container" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="589.0" prefWidth="600.0" spacing="10.0" stylesheets="@../css/profile.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pb.lms_desktop.controllers.ProfileController">
    <children>
-      <Button mnemonicParsing="false" text="Log out" />
-      <Label text="If you wish to change your personal information, please use the website.">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Label>
-      <Label fx:id="fullName" text="Petr Bohac">
-         <font>
-            <Font name="System Bold" size="30.0" />
-         </font>
-      </Label>
-      <Button mnemonicParsing="false" onAction="#changeFirstName" text="Change first name" />
-      <Button mnemonicParsing="false" onAction="#changeLastName" text="Change last name" />
-      <Label fx:id="rank" text="Rank">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label fx:id="email" text="Email" />
-      <HBox alignment="CENTER">
+      <VBox alignment="CENTER" spacing="5.0">
+         <VBox.margin>
+            <Insets top="15.0" />
+         </VBox.margin>
          <children>
-            <Label text="Registered on " />
-            <Label fx:id="registeredAt" text="Date" />
+            <Label fx:id="fullName" text="Full name">
+               <font>
+                  <Font name="System Bold" size="30.0" />
+               </font>
+            </Label>
+            <Label id="rank" fx:id="rank" style="-fx-text-fill: white; -fx-background-radius: 3px; -fx-padding: 3px;" text="Rank">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER">
+               <children>
+                  <Label text="Registered on " />
+                  <Label fx:id="registeredAt" text="Date" />
+               </children>
+            </HBox>
          </children>
-      </HBox>
-      <Button mnemonicParsing="false" text="Close my account" />
+      </VBox>
+      <Separator prefWidth="200.0" />
+      <Label text="General information">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <VBox spacing="2.0">
+         <children>
+            <HBox alignment="CENTER">
+               <children>
+                  <TextField fx:id="email" disable="true" prefHeight="25.0" prefWidth="221.0" text="Email" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="32.0" prefWidth="600.0" spacing="5.0">
+               <children>
+                  <TextField fx:id="firstName" editable="false" text="Firstname" />
+                  <FontAwesomeIconView fill="#3564ff" glyphName="EDIT" onMouseClicked="#changeFirstName" size="20" styleClass="editGlyph" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="0.0" prefWidth="600.0" spacing="5.0">
+               <children>
+                  <TextField fx:id="lastName" editable="false" text="Lastname" />
+                  <FontAwesomeIconView fill="#3564ff" glyphName="EDIT" onMouseClicked="#changeLastName" size="20" styleClass="editGlyph" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <Separator prefHeight="0.0" prefWidth="600.0" />
+      <Label text="Change your password">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <VBox alignment="CENTER" prefHeight="121.0" prefWidth="600.0" spacing="10.0">
+         <children>
+            <HBox alignment="CENTER">
+               <children>
+                  <TextField promptText="Old password" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER">
+               <children>
+                  <TextField promptText="New password" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER">
+               <children>
+                  <TextField promptText="Confirm new password" />
+               </children>
+            </HBox>
+            <Button mnemonicParsing="false" onAction="#changePassword" styleClass="successButton" text="Chagne password" />
+         </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </VBox>
+      <Separator prefWidth="200.0" />
+      <VBox fx:id="danger" alignment="CENTER" spacing="5.0">
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+         <children>
+            <Button mnemonicParsing="false" onAction="#logout" prefHeight="27.0" prefWidth="400.0" styleClass="dangerButton" text="Log out" />
+            <Button id="closeAccount" mnemonicParsing="false" onAction="#deleteAccount" prefHeight="27.0" prefWidth="400.0" style="-fx-border-color: red; -fx-border-radius: 5px; -fx-text-fill: red;" styleClass="dangerButton" text="Close my account" />
+         </children>
+      </VBox>
    </children>
 </VBox>

@@ -2,3 +2,33 @@
     -fx-cursor: hand;
     -fx-fill: #5e82ff;
 }
+
+.adminRank {
+    -fx-background-color: purple;
+}
+
+.userRank {
+    -fx-background-color: orange;
+}
+
+.successButton {
+    -fx-background-color: #f4f4f4;
+    -fx-border-color: #03a200;
+    -fx-border-radius: 5px;
+    -fx-text-fill: #03a200;
+}
+
+.successButton:hover {
+    -fx-background-color: #ccffce;
+}
+
+.dangerButton {
+    -fx-background-color: #f4f4f4;
+    -fx-border-color: red;
+    -fx-border-radius: 5px;
+    -fx-text-fill: red;
+}
+
+.dangerButton:hover {
+    -fx-background-color: #ffcccc;
+}

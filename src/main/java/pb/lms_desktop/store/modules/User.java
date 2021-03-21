@@ -92,7 +92,7 @@ public class User {
         return password;
     }
 
-    public boolean isIsAdmin() {
+    public boolean isAdmin() {
         return isAdmin.get();
     }
 
