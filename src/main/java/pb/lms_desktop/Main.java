@@ -4,11 +4,13 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 import pb.lms_desktop.controllers.Controller;
 import pb.lms_desktop.dialogs.LoginDialog;
 import pb.lms_desktop.store.Store;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class Main extends Application {
     private static Controller controller;
@@ -22,7 +24,12 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws IOException {
+    public void stop() {
+        stage.close();
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/index.fxml"));
 
         stage = primaryStage;
@@ -37,7 +44,8 @@ public class Main extends Application {
         primaryStage.show();
 
         // Sign in dialog
-        new LoginDialog(primaryStage).showAndWait();
+        Optional<Pair<Boolean, Pair<String, String>>> result = new LoginDialog().showAndWait();
+        if (result.isPresent() && !result.get().getKey()) return;
 
         // Default tab
         controller.changeContent("dashboard");

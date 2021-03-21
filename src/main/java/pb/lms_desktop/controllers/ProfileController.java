@@ -10,6 +10,7 @@ import pb.lms_desktop.dialogs.ChangeFirstNameDialog;
 import pb.lms_desktop.store.modules.User;
 
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ProfileController implements Initializable {
@@ -24,12 +25,16 @@ public class ProfileController implements Initializable {
         container.prefWidthProperty().bind(Main.stage.widthProperty());
         container.prefHeightProperty().bind(Main.stage.heightProperty());
 
+        // Bind information
         fullName.textProperty().bind(user.fullNameProperty());
         rank.textProperty().bind(Bindings.createStringBinding(() -> user.isIsAdmin() ? "Admin" : "User"));
         email.textProperty().bind(user.emailProperty());
     }
 
     public void changeFirstName() {
-        new ChangeFirstNameDialog().showAndWait();
+        Optional<String> result = new ChangeFirstNameDialog().showAndWait();
+        if (!result.isPresent()) return;
+        // TODO: 3/21/2021 change first name using api
+        System.out.println("");
     }
 }
