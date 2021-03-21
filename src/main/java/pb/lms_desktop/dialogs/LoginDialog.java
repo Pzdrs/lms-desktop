@@ -104,7 +104,7 @@ public class LoginDialog extends Dialog<Pair<Boolean, Pair<String, String>>> {
             resultLabel.setText("You need to be an administrator to access this application");
             return false;
         }
-        resultLabel.setText(new JSONObject(response.getValue()).getString("message"));
+        if (!response.getValue().equals("")) resultLabel.setText(new JSONObject(response.getValue()).getString("message"));
         return false;
     }
 

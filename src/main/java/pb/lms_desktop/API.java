@@ -1,14 +1,12 @@
 package pb.lms_desktop;
 
+import javafx.scene.control.Alert;
 import javafx.util.Pair;
 import org.apache.http.Header;
-import org.apache.http.HttpHeaders;
-import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.*;
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 
@@ -19,7 +17,6 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class API {
     private HttpClient client;
@@ -70,7 +67,11 @@ public class API {
                     new BasicNameValuePair("password", password));
             return new Pair<>(response.getStatusLine().getStatusCode(), asText(response.getEntity().getContent()));
         } catch (IOException e) {
-            e.printStackTrace();
+            // Show error dialog
+            Alert error = new Alert(Alert.AlertType.ERROR);
+            error.setTitle("Login error");
+            error.setHeaderText("Service unavailable, please try again later.");
+            error.show();
         }
         return new Pair<>(0, "");
     }
