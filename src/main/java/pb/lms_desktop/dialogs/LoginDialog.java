@@ -4,25 +4,29 @@ import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import javafx.util.Pair;
 import org.json.JSONObject;
 import pb.lms_desktop.Main;
 import pb.lms_desktop.References;
 import pb.lms_desktop.store.modules.User;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
-public class LoginDialog extends Dialog<Pair<String, String>> {
+public class LoginDialog extends Dialog<Pair<Boolean, Pair<String, String>>> {
     private TextField username;
     private PasswordField password;
     private Label usernameLabel, passwordLabel, resultLabel;
 
-    public LoginDialog(Stage primaryStage) {
+    public LoginDialog() {
         init();
-        setupConvertor(primaryStage);
+        setupConvertor();
     }
 
     /**
@@ -34,6 +38,15 @@ public class LoginDialog extends Dialog<Pair<String, String>> {
 
         this.username = new TextField();
         this.password = new PasswordField();
+
+        // Prefill login dialog to make the development easier
+        try {
+            List<String> credentials = Files.lines(new File("creds.txt").toPath()).collect(Collectors.toList());
+            username.setText(credentials.get(0).split(",")[0]);
+            password.setText(credentials.get(0).split(",")[1]);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         this.usernameLabel = new Label("Username");
         this.passwordLabel = new Label("Password");
@@ -107,13 +120,13 @@ public class LoginDialog extends Dialog<Pair<String, String>> {
     /**
      * Setup the custom result convertor
      */
-    private void setupConvertor(Stage stage) {
+    private void setupConvertor() {
         setResultConverter(result -> {
             if (result.getButtonData().equals(ButtonBar.ButtonData.OK_DONE)) {
-                return new Pair<>(username.getText(), password.getText());
+                return new Pair<>(true, new Pair<>(username.getText(), password.getText()));
             }
-            stage.close();
-            return null;
+            Main.stage.close();
+            return new Pair<>(false, null);
         });
     }
 }
