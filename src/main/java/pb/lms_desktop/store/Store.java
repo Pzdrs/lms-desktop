@@ -1,11 +1,8 @@
 package pb.lms_desktop.store;
 
-import javafx.animation.PauseTransition;
-import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.apache.http.HttpHeaders;
-import org.apache.http.HttpResponse;
 import org.apache.http.message.BasicHeader;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -17,27 +14,19 @@ import pb.lms_desktop.store.modules.Book;
 import pb.lms_desktop.store.modules.User;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.util.Date;
 
 public class Store {
     private Main main;
     private User user;
     private ObservableList<Book> books;
     private ObservableList<Author> authors;
+    private ObservableList<User> users;
 
     public Store(Main main) {
         this.main = main;
         this.books = FXCollections.observableArrayList();
         this.authors = FXCollections.observableArrayList();
-
-        /*books.addAll(new Book("5ff34284af13df0bc05de559", "Harry Potter and the Philosopher's Stone", "0-7475-3269-9", "1998", 309,
-                        new Author("5ff33134af13df0bc05de553", "Joanne", "Rowling", new Date(), new Date(), new Date()), new Date()),
-                new Book("5ff34284af13df0bc05de559", "Harry Potter and the Philosopher's Stone", "0-7475-3269-9", "1998", 309,
-                        new Author("5ff33134af13df0bc05de553", "Joanne", "Rowling", new Date(), new Date(), new Date()), new Date()),
-                new Book("5ff34284af13df0bc05de559", "Harry Potter and the Philosopher's Stone", "0-7475-3269-9", "1998", 309,
-                        new Author("5ff33134af13df0bc05de553", "Joanne", "Rowling", new Date(), new Date(), new Date()), new Date()));*/
+        this.users = FXCollections.observableArrayList();
     }
 
     public Main getMain() {
@@ -62,6 +51,10 @@ public class Store {
 
     public User getUser() {
         return user;
+    }
+
+    public ObservableList<User> getUsers() {
+        return users;
     }
 
     public void loadBooks() {
@@ -98,6 +91,30 @@ public class Store {
                             Utils.toDate(author.getString("born")),
                             Utils.toDate(author.get("died")),
                             Utils.toDate(author.getString("createdAt"))
+                    ));
+                });
+            } catch (IOException e) {
+                System.out.println("Couldn't load the authors");
+            }
+        }
+    }
+
+    public void loadUsers() {
+        if (this.users.size() == 0) {
+            try {
+                JSONArray authors = new JSONObject(API.asText(Main.getApi().get("/users").getEntity().getContent())).getJSONArray("users");
+                authors.forEach(json -> {
+                    JSONObject user = new JSONObject(json.toString());
+                    this.users.add(new User(
+                            null,
+                            user.getString("_id"),
+                            user.getString("username"),
+                            user.getString("email"),
+                            user.getString("firstName"),
+                            user.getString("lastName"),
+                            user.getString("password"),
+                            user.getBoolean("isAdmin"),
+                            Utils.toDate(user.getString("registeredAt"))
                     ));
                 });
             } catch (IOException e) {
