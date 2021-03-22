@@ -1,22 +1,17 @@
 package pb.lms_desktop.controllers;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.util.Callback;
 import pb.lms_desktop.Main;
 import pb.lms_desktop.Utils;
-import pb.lms_desktop.store.modules.Author;
 import pb.lms_desktop.store.modules.Book;
 
 import java.net.URL;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 public class BooksController implements Initializable {
@@ -29,9 +24,9 @@ public class BooksController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Resize and center the window cuz table too big
-        Main.stage.setWidth(1462);
-        Main.stage.centerOnScreen();
+        Utils.initPageSize(1462);
+
+        Main.getStore().loadBooks();
 
         // Responsive container sizing
         container.prefWidthProperty().bind(Main.stage.widthProperty().subtract(16));

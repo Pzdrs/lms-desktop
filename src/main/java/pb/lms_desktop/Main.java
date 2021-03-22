@@ -4,12 +4,8 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.util.Pair;
 import pb.lms_desktop.controllers.Controller;
-import pb.lms_desktop.dialogs.LoginDialog;
 import pb.lms_desktop.store.Store;
-
-import java.util.Optional;
 
 public class Main extends Application {
     private static Controller controller;
@@ -22,32 +18,34 @@ public class Main extends Application {
         launch(args);
     }
 
-    @Override
-    public void stop() {
-        stage.close();
+    public void init() {
+        api = new API("http://localhost:3000");
+        store = new Store(this);
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/index.fxml"));
-
         stage = primaryStage;
         scene = new Scene(loader.load(), 1280, 720);
-
         controller = loader.getController();
-        api = new API("http://localhost:3000");
-        store = new Store();
 
         primaryStage.setTitle(References.APP_NAME);
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        // Sign in dialog
-        Optional<Pair<Boolean, Pair<String, String>>> result = new LoginDialog().showAndWait();
-        if (result.isPresent() && !result.get().getKey()) return;
+        startup();
+    }
 
-        // Default tab
+    public void startup() {
+        // Check if the user actually logged in or closed the dialog
+        if (!Utils.promptLogin().getKey()) return;
         controller.changeContent("dashboard");
+    }
+
+    @Override
+    public void stop() {
+        stage.close();
     }
 
     public static Store getStore() {

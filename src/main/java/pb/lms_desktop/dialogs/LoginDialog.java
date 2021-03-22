@@ -33,7 +33,7 @@ public class LoginDialog extends Dialog<Pair<Boolean, Pair<String, String>>> {
      * Initial method that sets up the dialog's looks
      */
     private void init() {
-        setTitle(References.APP_NAME);
+        setTitle("Sign in");
         setHeaderText("Please sign in with your credentials.");
 
         this.username = new TextField();

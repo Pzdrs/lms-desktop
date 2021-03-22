@@ -2,20 +2,17 @@ package pb.lms_desktop.controllers;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.util.Pair;
 import pb.lms_desktop.Main;
+import pb.lms_desktop.Utils;
 import pb.lms_desktop.dialogs.ChangeFirstNameDialog;
 import pb.lms_desktop.dialogs.ChangeLastNameDialog;
 import pb.lms_desktop.dialogs.PasswordConfirmDialog;
 import pb.lms_desktop.store.modules.User;
-import sun.font.BidiUtils;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -29,8 +26,7 @@ public class ProfileController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Main.stage.setWidth(container.getPrefWidth());
-        Main.stage.centerOnScreen();
+        Utils.initPageSize(container.getPrefWidth());
 
         User user = Main.getStore().getUser();
 
@@ -80,16 +76,15 @@ public class ProfileController implements Initializable {
 
     public void logout() {
         // TODO: 3/22/2021 store refresh tokens and handle clientside
-        System.out.println("logout");
-
+        Main.getStore().setUser(null);
+        Main.getStore().getMain().startup();
     }
 
     public void deleteAccount() {
-        Optional<Boolean> confirm = new PasswordConfirmDialog().showAndWait();
-        confirm.ifPresent(b -> {
+        new PasswordConfirmDialog().showAndWait().ifPresent(b -> {
             if (b) {
-                //Pair<Integer, String> result = Main.getApi().deleteUser(Main.getStore().getUser().getId());
-                if (false) {
+                Pair<Integer, String> result = Main.getApi().deleteUser(Main.getStore().getUser().getId());
+                if (result.getKey() == 200) {
                     // Account deleted
                     Alert error = new Alert(Alert.AlertType.INFORMATION);
                     error.setTitle("Account closed");

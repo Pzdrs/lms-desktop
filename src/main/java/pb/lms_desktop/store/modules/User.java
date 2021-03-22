@@ -1,5 +1,6 @@
 package pb.lms_desktop.store.modules;
 
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -26,9 +27,6 @@ public class User {
         this.password = new SimpleStringProperty(password);
         this.isAdmin = new SimpleBooleanProperty(isAdmin);
         this.registeredAt = registeredAt;
-
-        Main.getController().navbarController.username.textProperty().bind(usernameProperty());
-        Main.getApi().setHeaders(new BasicHeader(HttpHeaders.AUTHORIZATION, accessToken));
     }
 
     public String getFullName() {

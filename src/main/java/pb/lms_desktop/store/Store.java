@@ -1,5 +1,6 @@
 package pb.lms_desktop.store;
 
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.apache.http.HttpHeaders;
@@ -9,14 +10,17 @@ import pb.lms_desktop.store.modules.Author;
 import pb.lms_desktop.store.modules.Book;
 import pb.lms_desktop.store.modules.User;
 
+import java.io.IOException;
 import java.util.Date;
 
 public class Store {
+    private Main main;
     private User user;
     private ObservableList<Book> books;
     private ObservableList<Author> authors;
 
-    public Store() {
+    public Store(Main main) {
+        this.main = main;
         this.books = FXCollections.observableArrayList();
         this.authors = FXCollections.observableArrayList();
 
@@ -26,6 +30,10 @@ public class Store {
                         new Author("5ff33134af13df0bc05de553", "Joanne", "Rowling", new Date(), new Date(), new Date()), new Date()),
                 new Book("5ff34284af13df0bc05de559", "Harry Potter and the Philosopher's Stone", "0-7475-3269-9", "1998", 309,
                         new Author("5ff33134af13df0bc05de553", "Joanne", "Rowling", new Date(), new Date(), new Date()), new Date()));
+    }
+
+    public Main getMain() {
+        return main;
     }
 
     public ObservableList<Book> getBooks() {
@@ -40,15 +48,21 @@ public class Store {
         this.user = user;
 
         Main.getController().navbarController.loggedInStatus.setText(user == null ? "Not logged in" : "Logged in as ");
+        Main.getController().navbarController.username.setText(user == null ? "" : user.getUsername());
+        Main.getApi().setHeaders(new BasicHeader(HttpHeaders.AUTHORIZATION, user == null ? null : user.getAccessToken()));
     }
 
     public User getUser() {
         return user;
     }
 
-    public static class Actions {
-        public static void doShit() {
-            System.out.println("shit");
+    public void loadBooks() {
+        if (this.books.size() == 0) {
+            try {
+                Main.getApi().get("/books");
+            } catch (IOException e) {
+                System.out.println("Couldn't load the books");
+            }
         }
     }
 }
