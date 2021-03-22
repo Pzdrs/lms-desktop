@@ -1,15 +1,11 @@
 package pb.lms_desktop.controllers;
 
-import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import pb.lms_desktop.Main;
 import pb.lms_desktop.Utils;
-import pb.lms_desktop.store.modules.Book;
 
 import java.net.URL;
 import java.util.ResourceBundle;

@@ -17,7 +17,7 @@ import java.util.ResourceBundle;
 public class NavbarController implements Initializable {
 
     public HBox user, links;
-    public Button dashboard, books, users, profile;
+    public Button dashboard, books, authors, users, profile;
     public GridPane container;
     public Label loggedInStatus, username;
 
@@ -28,6 +28,6 @@ public class NavbarController implements Initializable {
     }
 
     public List<Button> isolateButtons() {
-        return new ArrayList<>(Arrays.asList(dashboard, books, users, profile));
+        return new ArrayList<>(Arrays.asList(dashboard, books, authors, users, profile));
     }
 }
