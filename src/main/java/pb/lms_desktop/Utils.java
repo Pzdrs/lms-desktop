@@ -7,6 +7,9 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import pb.lms_desktop.dialogs.LoginDialog;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.util.Date;
 import java.util.Optional;
 
 public class Utils {
@@ -28,5 +31,10 @@ public class Utils {
     public static void initPageSize(double width) {
         Main.stage.setWidth(width);
         Main.stage.centerOnScreen();
+    }
+
+    public static Date toDate(Object s) {
+        if (s.toString().equals("null")) return null;
+        return new Date(LocalDateTime.parse(String.valueOf(s).split("\\.")[0]).toEpochSecond(ZoneOffset.ofHours(1)) * 1000);
     }
 }

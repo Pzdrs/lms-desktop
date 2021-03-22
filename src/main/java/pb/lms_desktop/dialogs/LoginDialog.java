@@ -8,6 +8,7 @@ import javafx.util.Pair;
 import org.json.JSONObject;
 import pb.lms_desktop.Main;
 import pb.lms_desktop.References;
+import pb.lms_desktop.Utils;
 import pb.lms_desktop.store.modules.User;
 
 import java.io.File;
@@ -87,7 +88,6 @@ public class LoginDialog extends Dialog<Pair<Boolean, Pair<String, String>>> {
         if (response.getKey() == 200) {
             JSONObject user = new JSONObject(response.getValue()).getJSONObject("user");
             if (isAdmin(user)) {
-                LocalDateTime ldt = LocalDateTime.parse(user.getString("registeredAt").split("\\.")[0]);
                 Main.getStore().setUser(new User(
                         new JSONObject(response.getValue()).getString("token"),
                         user.getString("_id"),
@@ -97,14 +97,15 @@ public class LoginDialog extends Dialog<Pair<Boolean, Pair<String, String>>> {
                         user.getString("lastName"),
                         user.getString("password"),
                         user.getBoolean("isAdmin"),
-                        new Date(ldt.toEpochSecond(ZoneOffset.ofHours(1)) * 1000)
+                        Utils.toDate(user.getString("registeredAt"))
                 ));
                 return true;
             }
             resultLabel.setText("You need to be an administrator to access this application");
             return false;
         }
-        if (!response.getValue().equals("")) resultLabel.setText(new JSONObject(response.getValue()).getString("message"));
+        if (!response.getValue().equals(""))
+            resultLabel.setText(new JSONObject(response.getValue()).getString("message"));
         return false;
     }
 
