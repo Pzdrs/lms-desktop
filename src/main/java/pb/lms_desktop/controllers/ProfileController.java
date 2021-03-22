@@ -5,15 +5,13 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.util.Pair;
 import pb.lms_desktop.Main;
 import pb.lms_desktop.dialogs.ChangeFirstNameDialog;
 import pb.lms_desktop.dialogs.ChangeLastNameDialog;
+import pb.lms_desktop.dialogs.PasswordConfirmDialog;
 import pb.lms_desktop.store.modules.User;
 import sun.font.BidiUtils;
 
@@ -63,33 +61,17 @@ public class ProfileController implements Initializable {
     public void changeFirstName() {
         Optional<String> firstNameDialog = new ChangeFirstNameDialog().showAndWait();
         if (!firstNameDialog.isPresent()) return;
-        try {
-            Pair<Integer, String> result = Main.getApi().changeUserProperty("firstName", firstNameDialog.get());
-            if (result.getKey() != 200) {
-                System.out.println(result.getValue());
-                return;
-            }
+        Pair<Integer, String> result = Main.getApi().changeUserProperty("firstName", firstNameDialog.get());
+        if (result.getKey() == 200)
             Main.getStore().getUser().setFirstName(firstNameDialog.get());
-        } catch (IOException e) {
-            e.printStackTrace();
-            // error dialog
-        }
     }
 
     public void changeLastName() {
         Optional<String> lastNameDialog = new ChangeLastNameDialog().showAndWait();
         if (!lastNameDialog.isPresent()) return;
-        try {
-            Pair<Integer, String> result = Main.getApi().changeUserProperty("lastName", lastNameDialog.get());
-            if (result.getKey() != 200) {
-                System.out.println(result.getValue());
-                return;
-            }
+        Pair<Integer, String> result = Main.getApi().changeUserProperty("lastName", lastNameDialog.get());
+        if (result.getKey() == 200)
             Main.getStore().getUser().setLastName(lastNameDialog.get());
-        } catch (IOException e) {
-            e.printStackTrace();
-            // error dialog
-        }
     }
 
     public void changePassword() {
@@ -97,8 +79,31 @@ public class ProfileController implements Initializable {
     }
 
     public void logout() {
+        // TODO: 3/22/2021 store refresh tokens and handle clientside
+        System.out.println("logout");
+
     }
 
     public void deleteAccount() {
+        Optional<Boolean> confirm = new PasswordConfirmDialog().showAndWait();
+        confirm.ifPresent(b -> {
+            if (b) {
+                //Pair<Integer, String> result = Main.getApi().deleteUser(Main.getStore().getUser().getId());
+                if (false) {
+                    // Account deleted
+                    Alert error = new Alert(Alert.AlertType.INFORMATION);
+                    error.setTitle("Account closed");
+                    error.setHeaderText("Your account has been closed, you will be logged out.");
+                    error.show();
+                    logout();
+                } else {
+                    // Couldn't delete account
+                    Alert error = new Alert(Alert.AlertType.ERROR);
+                    error.setTitle("Error");
+                    error.setHeaderText("We couldn't close your account, please try again later.");
+                    error.show();
+                }
+            }
+        });
     }
 }

@@ -98,8 +98,14 @@
             <Insets />
          </VBox.margin>
          <children>
-            <Button mnemonicParsing="false" onAction="#logout" prefHeight="27.0" prefWidth="400.0" styleClass="dangerButton" text="Log out" />
-            <Button id="closeAccount" mnemonicParsing="false" onAction="#deleteAccount" prefHeight="27.0" prefWidth="400.0" style="-fx-border-color: red; -fx-border-radius: 5px; -fx-text-fill: red;" styleClass="dangerButton" text="Close my account" />
+            <Button mnemonicParsing="false" onAction="#logout" prefHeight="27.0" prefWidth="400.0" styleClass="dangerButton" text="Log out">
+               <graphic>
+                  <FontAwesomeIconView fill="#b90000" glyphName="SIGN_OUT" />
+               </graphic></Button>
+            <Button id="closeAccount" mnemonicParsing="false" onAction="#deleteAccount" prefHeight="27.0" prefWidth="400.0" style="-fx-border-color: red; -fx-border-radius: 5px; -fx-text-fill: red;" styleClass="dangerButton" text="Close my account">
+               <graphic>
+                  <FontAwesomeIconView fill="#b90000" glyphName="TRASH" />
+               </graphic></Button>
          </children>
       </VBox>
    </children>

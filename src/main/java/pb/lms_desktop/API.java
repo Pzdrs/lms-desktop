@@ -55,9 +55,24 @@ public class API {
         return client.execute(req);
     }
 
-    public Pair<Integer, String> changeUserProperty(String key, String value) throws IOException {
-        HttpResponse response = patch("/users/" + Main.getStore().getUser().getId(), new BasicNameValuePair(key, value));
-        return new Pair<>(response.getStatusLine().getStatusCode(), asText(response.getEntity().getContent()));
+    public Pair<Integer, String> deleteUser(String id) {
+        try {
+            HttpResponse response = delete("/users/" + id);
+            return new Pair<>(response.getStatusLine().getStatusCode(), asText(response.getEntity().getContent()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new Pair<>(0, null);
+    }
+
+    public Pair<Integer, String> changeUserProperty(String key, String value) {
+        try {
+            HttpResponse response = patch("/users/" + Main.getStore().getUser().getId(), new BasicNameValuePair(key, value));
+            return new Pair<>(response.getStatusLine().getStatusCode(), asText(response.getEntity().getContent()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new Pair<>(0, null);
     }
 
     public Pair<Integer, String> login(String username, String password) {

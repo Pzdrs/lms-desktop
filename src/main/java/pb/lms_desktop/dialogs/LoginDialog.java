@@ -124,9 +124,8 @@ public class LoginDialog extends Dialog<Pair<Boolean, Pair<String, String>>> {
      */
     private void setupConvertor() {
         setResultConverter(result -> {
-            if (result.getButtonData().equals(ButtonBar.ButtonData.OK_DONE)) {
+            if (result.getButtonData().equals(ButtonBar.ButtonData.OK_DONE))
                 return new Pair<>(true, new Pair<>(username.getText(), password.getText()));
-            }
             Main.stage.close();
             return new Pair<>(false, null);
         });
