@@ -60,7 +60,7 @@ public class UsersController implements Initializable {
     }
 
     public void search() {
-        this.usersList = this.usersList.stream()
+        this.usersList = Main.getStore().getUsers().stream()
                 .filter(user -> user.getUsername().toLowerCase().contains(parameter_filter.getText().toLowerCase()))
                 .collect(Collectors.toList());
         showUsers();
