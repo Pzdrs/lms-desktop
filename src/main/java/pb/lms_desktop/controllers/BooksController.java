@@ -2,6 +2,7 @@ package pb.lms_desktop.controllers;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
@@ -13,12 +14,14 @@ import pb.lms_desktop.Main;
 import pb.lms_desktop.Utils;
 import pb.lms_desktop.store.modules.Author;
 import pb.lms_desktop.store.modules.Book;
+import pb.lms_desktop.store.modules.User;
 
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class BooksController implements Initializable {
     public BorderPane container;
@@ -46,18 +49,42 @@ public class BooksController implements Initializable {
         author.setCellValueFactory(param -> param.getValue().getAuthor().getFullName());
         createdAt.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
 
-        // Populating the table
-        booksList.forEach(book -> {
-            books.getItems().add(book);
-        });
-
-        // TODO: 3/22/2021 data prepared, display those bad boys
-
         // Responsive container sizing
         container.prefWidthProperty().bind(Main.stage.widthProperty().subtract(16));
         container.prefHeightProperty().bind(Main.stage.heightProperty().subtract(76));
 
-        // Search bar listener
-        parameter_filter.textProperty().addListener((observable, oldValue, newValue) -> System.out.println(newValue));
+        populate();
+    }
+
+    private void populate() {
+        books.getItems().clear();
+        booksList.forEach(book -> {
+            books.getItems().add(book);
+        });
+    }
+
+    public void resetFilters() {
+        parameter_filter.setText("");
+        this.booksList = Main.getStore().getBooks();
+        populate();
+    }
+
+    public void search() {
+        this.booksList = Main.getStore().getBooks().stream()
+                .filter(book -> book.getTitle().toLowerCase().contains(parameter_filter.getText().toLowerCase()))
+                .collect(Collectors.toList());
+        populate();
+    }
+
+    public void filterAvailable() {
+        if (parameter_availableOnly.isSelected()) {
+            this.booksList = this.booksList.stream()
+                    .filter(book -> book.getId().equals(""))
+                    .collect(Collectors.toList());
+        } else {
+            resetFilters();
+            return;
+        }
+        populate();
     }
 }

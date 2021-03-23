@@ -9,9 +9,10 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="container" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="409.0" prefWidth="1445.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pb.lms_desktop.controllers.BooksController">
+<BorderPane fx:id="container" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="409.0" prefWidth="1251.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pb.lms_desktop.controllers.BooksController">
     <left>
         <VBox id="navigation" alignment="TOP_CENTER" prefHeight="409.0" prefWidth="150.0" spacing="10.0" style="-fx-background-color: #595959;" stylesheets="@../css/books.css" BorderPane.alignment="CENTER">
             <children>
@@ -35,7 +36,13 @@
                 <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
                     <children>
                         <TextField fx:id="parameter_filter" promptText="Search" />
-                        <CheckBox fx:id="parameter_availableOnly" mnemonicParsing="false" text="Available books only" />
+                        <HBox alignment="CENTER_RIGHT" spacing="10.0">
+                            <children>
+                                <Button mnemonicParsing="false" onAction="#resetFilters" text="Reset" />
+                                <Button mnemonicParsing="false" onAction="#search" text="Search" />
+                            </children>
+                        </HBox>
+                        <CheckBox fx:id="parameter_availableOnly" mnemonicParsing="false" onAction="#filterAvailable" text="Available books only" />
                     </children>
                 </VBox>
             </content>
