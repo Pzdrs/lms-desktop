@@ -1,7 +1,11 @@
 package pb.lms_desktop;
 
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.util.Pair;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import pb.lms_desktop.dialogs.LoginDialog;
@@ -15,6 +19,10 @@ import java.util.Optional;
 public class Utils {
     public static Parent loadFXML(String fxml) throws IOException {
         return FXMLLoader.load(Main.class.getResource("/scenes/" + fxml + ".fxml"));
+    }
+
+    public static Parent loadPartialFXML(String fxml) throws IOException {
+        return FXMLLoader.load(Main.class.getResource("/partials/" + fxml + ".fxml"));
     }
 
     public static boolean checkPassword(String password) {
