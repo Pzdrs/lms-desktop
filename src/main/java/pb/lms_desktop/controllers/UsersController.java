@@ -15,6 +15,7 @@ import javafx.scene.text.Font;
 import pb.lms_desktop.Main;
 import pb.lms_desktop.Utils;
 
+import javax.script.Bindings;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -48,7 +49,9 @@ public class UsersController implements Initializable {
             HBox registeredAtContainer = createDetailContainer(registeredAtLabel, registeredAt);
 
             VBox detailsContainer = new VBox(usernameContainer, emailContainer, registeredAtContainer);
-            users.getPanes().add(new TitledPane(user.getFullName(), detailsContainer));
+            TitledPane pane = new TitledPane(user.getFullName(), detailsContainer);
+            pane.getStyleClass().add(user.isAdmin() ? "userDetailAdmin" : "userDetailUser");
+            users.getPanes().add(pane);
         });
     }
 

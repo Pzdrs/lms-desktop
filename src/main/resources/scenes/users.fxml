@@ -6,23 +6,27 @@
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="container" prefHeight="475.0" prefWidth="1146.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pb.lms_desktop.controllers.UsersController">
+<BorderPane fx:id="container" prefHeight="475.0" prefWidth="1146.0" stylesheets="@../css/users.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pb.lms_desktop.controllers.UsersController">
     <left>
         <VBox prefHeight="475.0" prefWidth="125.0" style="-fx-background-color: #595959;" BorderPane.alignment="CENTER" />
     </left>
     <right>
       <VBox alignment="TOP_CENTER">
          <children>
-              <TitledPane alignment="CENTER" animated="false" collapsible="false" prefHeight="273.0" prefWidth="202.0" text="Parameters">
+              <TitledPane alignment="CENTER" animated="false" collapsible="false" prefHeight="273.0" prefWidth="202.0" style="-fx-text-fill: purple;" text="Parameters">
                   <content>
                       <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
                           <children>
                               <TextField fx:id="parameter_filter" promptText="Search" />
-                              <CheckBox fx:id="parameter_availableOnly" mnemonicParsing="false" text="Available books only" />
+                              <CheckBox fx:id="parameter_availableOnly" mnemonicParsing="false" text="Administrators only" />
                           </children>
                       </VBox>
                   </content>
+               <font>
+                  <Font size="15.0" />
+               </font>
               </TitledPane>
          </children>
       </VBox>
