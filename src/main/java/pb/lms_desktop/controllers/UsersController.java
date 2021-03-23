@@ -1,30 +1,29 @@
 package pb.lms_desktop.controllers;
 
-import javafx.fxml.FXMLLoader;
+import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.control.Accordion;
-import javafx.scene.control.Label;
-import javafx.scene.control.TitledPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import pb.lms_desktop.Main;
 import pb.lms_desktop.Utils;
+import pb.lms_desktop.store.modules.User;
 
-import javax.script.Bindings;
-import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class UsersController implements Initializable {
     public BorderPane container;
     public Accordion users;
+    public TextField parameter_filter;
+    public CheckBox parameter_adminsOnly;
+    private List<User> usersList;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -34,25 +33,13 @@ public class UsersController implements Initializable {
         container.prefHeightProperty().bind(Main.stage.heightProperty().subtract(76));
 
         Main.getStore().loadUsers();
+        this.usersList = Main.getStore().getUsers();
 
-        Main.getStore().getUsers().forEach(user -> {
-            Label usernameLabel = new Label("Username:"), username = new Label(user.getUsername());
-            Label emailLabel = new Label("Email:"), email = new Label(user.getEmail());
-            Label registeredAtLabel = new Label("Registration:"), registeredAt = new Label(user.getRegisteredAt().toString());
+        // Display admins first
+        usersList.sort((user1, user2) -> Boolean.compare(user2.isAdmin(), user1.isAdmin()));
 
-            usernameLabel.setStyle("-fx-font-weight: bold");
-            emailLabel.setStyle("-fx-font-weight: bold");
-            registeredAtLabel.setStyle("-fx-font-weight: bold");
-
-            HBox usernameContainer = createDetailContainer(usernameLabel, username);
-            HBox emailContainer = createDetailContainer(emailLabel, email);
-            HBox registeredAtContainer = createDetailContainer(registeredAtLabel, registeredAt);
-
-            VBox detailsContainer = new VBox(usernameContainer, emailContainer, registeredAtContainer);
-            TitledPane pane = new TitledPane(user.getFullName(), detailsContainer);
-            pane.getStyleClass().add(user.isAdmin() ? "userDetailAdmin" : "userDetailUser");
-            users.getPanes().add(pane);
-        });
+        // User details layout, idk how to do it using .fxml file and nested controllers
+        showUsers();
     }
 
     public HBox createDetailContainer(Node... nodes) {
@@ -60,5 +47,64 @@ public class UsersController implements Initializable {
         container.setSpacing(5);
         container.setAlignment(Pos.CENTER);
         return container;
+    }
+
+    public void addUser() {
+        // TODO: 3/23/2021 add user button
+    }
+
+    public void resetFilters() {
+        parameter_filter.setText("");
+        this.usersList = Main.getStore().getUsers();
+        showUsers();
+    }
+
+    public void search() {
+        this.usersList = this.usersList.stream()
+                .filter(user -> user.getUsername().toLowerCase().contains(parameter_filter.getText().toLowerCase()))
+                .collect(Collectors.toList());
+        showUsers();
+    }
+
+    public void filterAdmins() {
+        if (parameter_adminsOnly.isSelected()) {
+            this.usersList = this.usersList.stream()
+                    .filter(User::isAdmin)
+                    .collect(Collectors.toList());
+        } else {
+            resetFilters();
+            return;
+        }
+        showUsers();
+    }
+
+    private void showUsers() {
+        // Initial clear
+        this.users.getPanes().clear();
+
+        // Populate
+        usersList.forEach(user -> {
+            Label fullName = new Label(user.getFullName());
+            Label idLabel = new Label("Identification:"), id = new Label(user.getId());
+            Label emailLabel = new Label("Email:"), email = new Label(user.getEmail());
+            Label registeredAtLabel = new Label("Registration:"), registeredAt = new Label(user.getRegisteredAt().toString());
+
+            fullName.setStyle("-fx-font-weight: bold; -fx-font-size: 35px");
+            fullName.getStyleClass().add(user.isAdmin() ? "userDetailAdmin" : "userDetailUser");
+
+            idLabel.setStyle("-fx-font-weight: bold");
+            emailLabel.setStyle("-fx-font-weight: bold");
+            registeredAtLabel.setStyle("-fx-font-weight: bold");
+
+            HBox idContainer = createDetailContainer(idLabel, id);
+            HBox emailContainer = createDetailContainer(emailLabel, email);
+            HBox registeredAtContainer = createDetailContainer(registeredAtLabel, registeredAt);
+
+            VBox detailsContainer = new VBox(createDetailContainer(fullName), new Separator(), idContainer, emailContainer, registeredAtContainer); // TODO: 3/23/2021 Optional: add action buttons
+            detailsContainer.setSpacing(10);
+            TitledPane pane = new TitledPane(user.getFullName() + "  (" + user.getUsername() + ")", detailsContainer);
+            pane.getStyleClass().add(user.isAdmin() ? "userDetailAdmin" : "userDetailUser");
+            users.getPanes().add(pane);
+        });
     }
 }

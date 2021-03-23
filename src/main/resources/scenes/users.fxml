@@ -1,35 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="container" prefHeight="475.0" prefWidth="1146.0" stylesheets="@../css/users.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pb.lms_desktop.controllers.UsersController">
     <left>
-        <VBox prefHeight="475.0" prefWidth="125.0" style="-fx-background-color: #595959;" BorderPane.alignment="CENTER" />
+        <VBox id="navigation" alignment="TOP_CENTER" prefHeight="475.0" prefWidth="150.0" spacing="10.0" style="-fx-background-color: #595959;" BorderPane.alignment="CENTER">
+            <children>
+                <Button disable="true" mnemonicParsing="false" onAction="#addUser" text="Add user">
+                    <graphic>
+                        <FontAwesomeIconView fill="#03a800" glyphName="PLUS" size="15.0" />
+                    </graphic>
+               <VBox.margin>
+                  <Insets top="25.0" />
+               </VBox.margin>
+                </Button>
+            </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+        </VBox>
     </left>
     <right>
-      <VBox alignment="TOP_CENTER">
-         <children>
-              <TitledPane alignment="CENTER" animated="false" collapsible="false" prefHeight="273.0" prefWidth="202.0" style="-fx-text-fill: purple;" text="Parameters">
-                  <content>
-                      <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
-                          <children>
-                              <TextField fx:id="parameter_filter" promptText="Search" />
-                              <CheckBox fx:id="parameter_availableOnly" mnemonicParsing="false" text="Administrators only" />
-                          </children>
-                      </VBox>
-                  </content>
-               <font>
-                  <Font size="15.0" />
-               </font>
-              </TitledPane>
-         </children>
-      </VBox>
+        <VBox alignment="TOP_CENTER">
+            <children>
+                <TitledPane alignment="CENTER" animated="false" collapsible="false" prefHeight="273.0" prefWidth="202.0" text="Parameters">
+                    <content>
+                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+                            <children>
+                                <TextField fx:id="parameter_filter" promptText="Search" />
+                        <HBox alignment="CENTER_RIGHT" spacing="10.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#resetFilters" text="Reset" />
+                              <Button mnemonicParsing="false" onAction="#search" text="Search" />
+                           </children>
+                        </HBox>
+                                <CheckBox fx:id="parameter_adminsOnly" mnemonicParsing="false" onAction="#filterAdmins" text="Administrators only" />
+                            </children>
+                        </VBox>
+                    </content>
+                </TitledPane>
+            </children>
+        </VBox>
     </right>
     <center>
         <Accordion fx:id="users" BorderPane.alignment="CENTER" />

@@ -1,0 +1,13 @@
+.userDetailAdmin{
+    -fx-text-fill: purple;
+}
+
+.userDetailUser{
+    -fx-text-fill: #a77b00;
+}
+
+#navigation {
+    -fx-border-style: hidden solid hidden hidden;
+    -fx-border-color: black;
+    -fx-border-width: 2;
+}
