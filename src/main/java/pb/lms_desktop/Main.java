@@ -40,7 +40,7 @@ public class Main extends Application {
     public void startup() {
         // Check if the user actually logged in or closed the dialog
         if (!Utils.promptLogin().getKey()) return;
-        controller.changeContent("users");
+        controller.changeContent("books");
     }
 
     @Override

@@ -8,7 +8,6 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
@@ -42,17 +41,20 @@
             </content>
         </TitledPane>
     </right>
-    <center>
-        <TableView fx:id="books" prefHeight="409.0" prefWidth="1101.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <columns>
-                <TableColumn fx:id="id" prefWidth="175.0" text="ID" />
-                <TableColumn fx:id="isbn" minWidth="0.0" prefWidth="110.0" text="ISBN" />
-                <TableColumn fx:id="title" prefWidth="291.0" text="Title" />
-                <TableColumn fx:id="pages" minWidth="0.0" prefWidth="82.0" text="Page count" />
-                <TableColumn fx:id="author" prefWidth="185.0" text="Author" />
-                <TableColumn fx:id="writtenIn" prefWidth="93.0" text="Year of writing" />
-                <TableColumn fx:id="actions" prefWidth="163.0" text="Actions" />
-            </columns>
-        </TableView>
-    </center>
+   <center>
+      <TableView fx:id="books" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="TOP_RIGHT">
+        <columns>
+          <TableColumn fx:id="id" prefWidth="75.0" text="ID" />
+          <TableColumn fx:id="isbn" prefWidth="75.0" text="ISBN" />
+            <TableColumn fx:id="title" prefWidth="75.0" text="Title" />
+            <TableColumn fx:id="pageCount" prefWidth="74.0" text="Page count" />
+            <TableColumn fx:id="writtenIn" prefWidth="290.0" text="Year of writing" />
+            <TableColumn fx:id="author" prefWidth="75.0" text="Author" />
+            <TableColumn fx:id="createdAt" prefWidth="75.0" text="Creation date" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+   </center>
 </BorderPane>

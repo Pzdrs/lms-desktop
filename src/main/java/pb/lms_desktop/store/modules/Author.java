@@ -1,5 +1,8 @@
 package pb.lms_desktop.store.modules;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
+
 import java.util.Date;
 
 public class Author {
@@ -49,5 +52,9 @@ public class Author {
                 ", died=" + died +
                 ", createdAt=" + createdAt +
                 '}';
+    }
+
+    public ObservableValue<String> getFullName() {
+        return new SimpleStringProperty(this.firstName + " " + this.lastName);
     }
 }

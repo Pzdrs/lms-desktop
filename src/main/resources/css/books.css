@@ -3,3 +3,7 @@
     -fx-border-color: black;
     -fx-border-width: 2;
 }
+
+.table-column {
+    -fx-alignment: CENTER-RIGHT;
+}
