@@ -1,124 +1,114 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="container" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-      minWidth="-Infinity" prefHeight="589.0" prefWidth="600.0" spacing="10.0" stylesheets="@../css/profile.css"
-      xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="pb.lms_desktop.controllers.ProfileController">
+<VBox fx:id="container" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="613.0" prefWidth="600.0" spacing="15.0" stylesheets="@../css/profile.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pb.lms_desktop.controllers.ProfileController">
     <children>
         <VBox alignment="CENTER" spacing="5.0">
             <VBox.margin>
-                <Insets top="15.0"/>
+                <Insets top="15.0" />
             </VBox.margin>
             <children>
                 <Label fx:id="fullName" text="Full name">
                     <font>
-                        <Font name="System Bold" size="30.0"/>
+                        <Font name="System Bold" size="30.0" />
                     </font>
                 </Label>
-                <Label id="rank" fx:id="rank"
-                       style="-fx-text-fill: white; -fx-background-radius: 3px; -fx-padding: 3px;" text="Rank">
+                <Label id="rank" fx:id="rank" style="-fx-text-fill: white; -fx-background-radius: 3px; -fx-padding: 3px;" text="Rank">
                     <font>
-                        <Font size="20.0"/>
+                        <Font size="20.0" />
                     </font>
                 </Label>
                 <HBox alignment="CENTER">
                     <children>
-                        <Label text="Registered on "/>
-                        <Label fx:id="registeredAt" text="Date"/>
+                        <Label text="Registered on " />
+                        <Label fx:id="registeredAt" text="Date" />
                     </children>
                 </HBox>
             </children>
         </VBox>
-        <Separator prefWidth="200.0"/>
+        <Separator prefWidth="200.0" />
         <Label text="General information">
             <font>
-                <Font size="17.0"/>
+                <Font size="17.0" />
             </font>
         </Label>
         <VBox spacing="2.0">
             <children>
                 <HBox alignment="CENTER">
                     <children>
-                        <TextField fx:id="email" disable="true" prefHeight="25.0" prefWidth="221.0" text="Email"/>
+                  <JFXTextField fx:id="email" disable="true" prefHeight="25.0" prefWidth="215.0" text="Email" />
                     </children>
                 </HBox>
                 <HBox alignment="CENTER" prefHeight="32.0" prefWidth="600.0" spacing="5.0">
                     <children>
-                        <TextField fx:id="firstName" editable="false" text="Firstname"/>
-                        <FontAwesomeIconView fill="#3564ff" glyphName="EDIT" onMouseClicked="#changeFirstName" size="20"
-                                             styleClass="editGlyph"/>
+                  <JFXTextField fx:id="firstName" editable="false" text="Firstname" />
+                        <FontAwesomeIconView fill="#3564ff" glyphName="EDIT" onMouseClicked="#changeFirstName" size="20" styleClass="editGlyph" />
                     </children>
                 </HBox>
                 <HBox alignment="CENTER" prefHeight="0.0" prefWidth="600.0" spacing="5.0">
                     <children>
-                        <TextField fx:id="lastName" editable="false" text="Lastname"/>
-                        <FontAwesomeIconView fill="#3564ff" glyphName="EDIT" onMouseClicked="#changeLastName" size="20"
-                                             styleClass="editGlyph"/>
+                  <JFXTextField fx:id="lastName" editable="false" text="Lastname" />
+                        <FontAwesomeIconView fill="#3564ff" glyphName="EDIT" onMouseClicked="#changeLastName" size="20" styleClass="editGlyph" />
                     </children>
                 </HBox>
             </children>
         </VBox>
-        <Separator prefHeight="0.0" prefWidth="600.0"/>
+        <Separator prefHeight="0.0" prefWidth="600.0" />
         <Label text="Change your password">
             <font>
-                <Font size="17.0"/>
+                <Font size="17.0" />
             </font>
         </Label>
         <VBox alignment="CENTER" prefHeight="121.0" prefWidth="600.0" spacing="10.0">
             <children>
                 <HBox alignment="CENTER">
                     <children>
-                        <PasswordField fx:id="oldPassword" promptText="Old password"/>
+                  <JFXPasswordField fx:id="oldPassword" promptText="Old password" />
                     </children>
                 </HBox>
                 <HBox alignment="CENTER">
-                    <children>
-                        <PasswordField fx:id="newPassword" promptText="New password"/>
-                    </children>
+               <children>
+                  <JFXPasswordField fx:id="newPassword" promptText="New password" />
+               </children>
                 </HBox>
                 <HBox alignment="CENTER">
-                    <children>
-                        <PasswordField fx:id="newPasswordConfirm" promptText="Confirm new password"/>
-                    </children>
+               <children>
+                  <JFXPasswordField fx:id="newPasswordConfirm" promptText="Confirm new password" />
+               </children>
                 </HBox>
-                <Button fx:id="changePassword" mnemonicParsing="false" onAction="#changePassword"
-                        styleClass="successButton" text="Chagne password"/>
+            <JFXButton fx:id="changePassword" buttonType="RAISED" onAction="#changePassword" prefWidth="255.0" styleClass="successButton" text="Change password" />
             </children>
             <VBox.margin>
-                <Insets/>
+                <Insets />
             </VBox.margin>
         </VBox>
-        <Separator prefWidth="200.0"/>
+        <Separator prefWidth="200.0" />
         <VBox fx:id="danger" alignment="CENTER" spacing="5.0">
             <VBox.margin>
-                <Insets/>
+                <Insets />
             </VBox.margin>
-            <children>
-                <Button mnemonicParsing="false" onAction="#logout" prefHeight="27.0" prefWidth="400.0"
-                        styleClass="dangerButton" text="Log out">
-                    <graphic>
-                        <FontAwesomeIconView fill="#b90000" glyphName="SIGN_OUT"/>
-                    </graphic>
-                </Button>
-                <Button id="closeAccount" mnemonicParsing="false" onAction="#deleteAccount" prefHeight="27.0"
-                        prefWidth="400.0" style="-fx-border-color: red; -fx-border-radius: 5px; -fx-text-fill: red;"
-                        styleClass="dangerButton" text="Close my account">
-                    <graphic>
-                        <FontAwesomeIconView fill="#b90000" glyphName="TRASH"/>
-                    </graphic>
-                </Button>
-            </children>
+         <children>
+            <JFXButton buttonType="RAISED" prefWidth="255.0" ripplerFill="#2c1414" styleClass="dangerButton" text="Log out" textFill="#ff2323">
+               <graphic>
+                  <FontAwesomeIconView fill="RED" glyphName="SIGN_OUT" />
+               </graphic>
+            </JFXButton>
+            <JFXButton buttonType="RAISED" layoutX="183.0" layoutY="10.0" prefWidth="255.0" ripplerFill="#2c1414" styleClass="dangerButton" text="Close my account" textFill="#ff2323">
+               <graphic>
+                  <FontAwesomeIconView fill="RED" glyphName="TRASH" />
+               </graphic>
+            </JFXButton>
+         </children>
         </VBox>
     </children>
 </VBox>
