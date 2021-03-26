@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Accordion?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -15,18 +15,18 @@
     <left>
         <VBox id="navigation" alignment="TOP_CENTER" prefHeight="475.0" prefWidth="150.0" spacing="10.0" style="-fx-background-color: #595959;" BorderPane.alignment="CENTER">
             <children>
-                <Button disable="true" mnemonicParsing="false" onAction="#addUser" text="Add user">
-                    <graphic>
-                        <FontAwesomeIconView fill="#03a800" glyphName="PLUS" size="15.0" />
-                    </graphic>
-               <VBox.margin>
-                  <Insets top="25.0" />
-               </VBox.margin>
-                </Button>
+            <JFXButton style="-fx-background-color: #e8fff9; -fx-background-radius: 0;" text="Add user">
+               <graphic>
+                  <FontAwesomeIconView fill="#03a800" glyphName="PLUS" size="17" />
+               </graphic>
+            </JFXButton>
             </children>
          <BorderPane.margin>
             <Insets />
          </BorderPane.margin>
+         <padding>
+            <Insets top="15.0" />
+         </padding>
         </VBox>
     </left>
     <right>
@@ -36,14 +36,14 @@
                     <content>
                         <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
                             <children>
-                                <TextField fx:id="parameter_filter" promptText="Search" />
+                        <JFXTextField fx:id="parameter_filter" promptText="Search" />
                         <HBox alignment="CENTER_RIGHT" spacing="10.0">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#resetFilters" text="Reset" />
-                              <Button mnemonicParsing="false" onAction="#search" text="Search" />
+                              <JFXButton onAction="#resetFilters" style="-fx-background-radius: 0;" text="Reset" />
+                              <JFXButton onAction="#search" style="-fx-background-color: #34a4eb; -fx-background-radius: 0;" text="Search" />
                            </children>
                         </HBox>
-                                <CheckBox fx:id="parameter_adminsOnly" mnemonicParsing="false" onAction="#filterAdmins" text="Administrators only" />
+                        <JFXCheckBox fx:id="parameter_adminsOnly" onAction="#filterAdmins" text="Administrators only" />
                             </children>
                         </VBox>
                     </content>

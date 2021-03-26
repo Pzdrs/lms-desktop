@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -15,19 +15,19 @@
 <BorderPane fx:id="container" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="409.0" prefWidth="1251.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pb.lms_desktop.controllers.BooksController">
     <left>
         <VBox id="navigation" alignment="TOP_CENTER" prefHeight="409.0" prefWidth="150.0" spacing="10.0" style="-fx-background-color: #595959;" stylesheets="@../css/books.css" BorderPane.alignment="CENTER">
-            <children>
-                <Button mnemonicParsing="false" text="Add book">
-                    <graphic>
-                        <FontAwesomeIconView fill="#03a800" glyphName="PLUS" size="15.0" />
-                    </graphic>
-                </Button>
-            </children>
             <BorderPane.margin>
                 <Insets />
             </BorderPane.margin>
             <padding>
                 <Insets top="15.0" />
             </padding>
+         <children>
+            <JFXButton buttonType="RAISED" style="-fx-background-color: #e8fff9; -fx-background-radius: 0;" text="Add book">
+               <graphic>
+                  <FontAwesomeIconView fill="#03a800" glyphName="PLUS" size="17" />
+               </graphic>
+            </JFXButton>
+         </children>
         </VBox>
     </left>
     <right>
@@ -35,27 +35,26 @@
             <content>
                 <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
                     <children>
-                        <TextField fx:id="parameter_filter" promptText="Search" />
+                  <JFXTextField fx:id="parameter_filter" promptText="Search" />
                         <HBox alignment="CENTER_RIGHT" spacing="10.0">
                             <children>
-                                <Button mnemonicParsing="false" onAction="#resetFilters" text="Reset" />
-                                <Button mnemonicParsing="false" onAction="#search" text="Search" />
+                        <JFXButton onAction="#resetFilters" style="-fx-background-radius: 0;" text="Reset" />
+                        <JFXButton onAction="#search" style="-fx-background-color: #34a4eb; -fx-background-radius: 0;" text="Search" />
                             </children>
                         </HBox>
-                        <CheckBox fx:id="parameter_availableOnly" mnemonicParsing="false" onAction="#filterAvailable" text="Available books only" />
+                  <JFXCheckBox fx:id="parameter_availableOnly" onAction="#filterAvailable" text="Available books only" />
                     </children>
                 </VBox>
             </content>
         </TitledPane>
     </right>
    <center>
-      <TableView fx:id="books" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="TOP_RIGHT">
+      <TableView fx:id="books" prefHeight="200.0" prefWidth="200.0" stylesheets="@../css/booksTableView.css" BorderPane.alignment="TOP_RIGHT">
         <columns>
           <TableColumn fx:id="id" prefWidth="75.0" text="ID" />
           <TableColumn fx:id="isbn" prefWidth="75.0" text="ISBN" />
             <TableColumn fx:id="title" prefWidth="75.0" text="Title" />
             <TableColumn fx:id="pageCount" prefWidth="74.0" text="Page count" />
-            <TableColumn fx:id="writtenIn" prefWidth="290.0" text="Year of writing" />
             <TableColumn fx:id="author" prefWidth="75.0" text="Author" />
             <TableColumn fx:id="createdAt" prefWidth="75.0" text="Creation date" />
         </columns>
