@@ -1,9 +1,5 @@
 package pb.lms_desktop.controllers;
 
-import com.sun.javafx.scene.control.skin.NestedTableColumnHeader;
-import com.sun.javafx.scene.control.skin.TableColumnHeader;
-import com.sun.javafx.scene.control.skin.TableHeaderRow;
-import com.sun.javafx.scene.control.skin.TableViewSkin;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
@@ -15,8 +11,6 @@ import pb.lms_desktop.Main;
 import pb.lms_desktop.Utils;
 import pb.lms_desktop.store.modules.Book;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.Date;
 import java.util.List;
@@ -58,6 +52,7 @@ public class BooksController implements Initializable {
     private void populate() {
         books.getItems().clear();
         booksList.forEach(book -> {
+            Utils.bookAvailable(book.getId());
             books.getItems().add(book);
         });
     }
@@ -84,7 +79,7 @@ public class BooksController implements Initializable {
     public void filterAvailable() {
         if (parameter_availableOnly.isSelected()) {
             this.booksList = this.booksList.stream()
-                    .filter(book -> book.getId().equals(""))
+                    .filter(book -> !Utils.bookAvailable(book.getId()))
                     .collect(Collectors.toList());
         } else {
             resetFilters();
