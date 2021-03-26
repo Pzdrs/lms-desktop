@@ -1,8 +1,9 @@
 package pb.lms_desktop.controllers;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.event.ActionEvent;
+import com.sun.javafx.scene.control.skin.NestedTableColumnHeader;
+import com.sun.javafx.scene.control.skin.TableColumnHeader;
+import com.sun.javafx.scene.control.skin.TableHeaderRow;
+import com.sun.javafx.scene.control.skin.TableViewSkin;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
@@ -12,12 +13,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import pb.lms_desktop.Main;
 import pb.lms_desktop.Utils;
-import pb.lms_desktop.store.modules.Author;
 import pb.lms_desktop.store.modules.Book;
-import pb.lms_desktop.store.modules.User;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -28,7 +28,7 @@ public class BooksController implements Initializable {
     public TextField parameter_filter;
     public CheckBox parameter_availableOnly;
     public TableView<Book> books;
-    public TableColumn<Book, String> id, isbn, title, writtenIn, author;
+    public TableColumn<Book, String> id, isbn, title, author;
     public TableColumn<Book, Integer> pageCount;
     public TableColumn<Book, Date> createdAt;
     private List<Book> booksList;
@@ -43,8 +43,7 @@ public class BooksController implements Initializable {
         // Setting cell value factories
         id.setCellValueFactory(new PropertyValueFactory<>("id"));
         isbn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
-        title.setCellValueFactory(new PropertyValueFactory<>("title"));
-        writtenIn.setCellValueFactory(new PropertyValueFactory<>("writtenIn"));
+        title.setCellValueFactory(new PropertyValueFactory<>("fullTitle"));
         pageCount.setCellValueFactory(new PropertyValueFactory<>("pageCount"));
         author.setCellValueFactory(param -> param.getValue().getAuthor().getFullName());
         createdAt.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
@@ -53,7 +52,7 @@ public class BooksController implements Initializable {
         container.prefWidthProperty().bind(Main.stage.widthProperty().subtract(16));
         container.prefHeightProperty().bind(Main.stage.heightProperty().subtract(76));
 
-        populate();
+        resetFilters();
     }
 
     private void populate() {
@@ -67,6 +66,12 @@ public class BooksController implements Initializable {
         parameter_filter.setText("");
         this.booksList = Main.getStore().getBooks();
         populate();
+        deselect();
+    }
+
+    private void deselect() {
+        // The first row is initially selected, which adds padding to it and looks weird so im deselecting the first row
+        books.getSelectionModel().clearSelection();
     }
 
     public void search() {
