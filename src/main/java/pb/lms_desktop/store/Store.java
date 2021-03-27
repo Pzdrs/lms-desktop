@@ -11,6 +11,7 @@ import pb.lms_desktop.Main;
 import pb.lms_desktop.Utils;
 import pb.lms_desktop.store.modules.Author;
 import pb.lms_desktop.store.modules.Book;
+import pb.lms_desktop.store.modules.History;
 import pb.lms_desktop.store.modules.User;
 
 import java.io.IOException;
@@ -21,12 +22,14 @@ public class Store {
     private ObservableList<Book> books;
     private ObservableList<Author> authors;
     private ObservableList<User> users;
+    private ObservableList<History> history;
 
     public Store(Main main) {
         this.main = main;
         this.books = FXCollections.observableArrayList();
         this.authors = FXCollections.observableArrayList();
         this.users = FXCollections.observableArrayList();
+        this.history = FXCollections.observableArrayList();
     }
 
     public Main getMain() {
@@ -39,6 +42,10 @@ public class Store {
 
     public ObservableList<Author> getAuthors() {
         return authors;
+    }
+
+    public ObservableList<History> getHistory() {
+        return history;
     }
 
     public void setUser(User user) {
@@ -99,11 +106,34 @@ public class Store {
         }
     }
 
+    public void loadHistory() {
+        loadUsers();
+        loadBooks();
+        if (this.history.size() == 0) {
+            try {
+                JSONArray history = new JSONObject(API.asText(Main.getApi().get("/history").getEntity().getContent())).getJSONArray("history");
+                history.forEach(json -> {
+                    JSONObject singleHistory = new JSONObject(json.toString());
+                    this.history.add(new History(
+                            singleHistory.getString("_id"),
+                            singleHistory.getBoolean("returned"),
+                            Utils.getBookById(singleHistory.getString("book")),
+                            Utils.getUserById(singleHistory.getString("user")),
+                            Utils.toDate(singleHistory.getJSONObject("date").get("from")),
+                            Utils.toDate(singleHistory.getJSONObject("date").get("to"))
+                    ));
+                });
+            } catch (IOException e) {
+                System.out.println("Couldn't load the history");
+            }
+        }
+    }
+
     public void loadUsers() {
         if (this.users.size() == 0) {
             try {
-                JSONArray authors = new JSONObject(API.asText(Main.getApi().get("/users").getEntity().getContent())).getJSONArray("users");
-                authors.forEach(json -> {
+                JSONArray users = new JSONObject(API.asText(Main.getApi().get("/users").getEntity().getContent())).getJSONArray("users");
+                users.forEach(json -> {
                     JSONObject user = new JSONObject(json.toString());
                     this.users.add(new User(
                             null,
@@ -118,7 +148,7 @@ public class Store {
                     ));
                 });
             } catch (IOException e) {
-                System.out.println("Couldn't load the authors");
+                System.out.println("Couldn't load the users");
             }
         }
     }
