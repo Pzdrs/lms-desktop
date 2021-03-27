@@ -45,15 +45,12 @@ public class BooksController implements Initializable {
 
         // Load books
         Main.getStore().loadBooks();
-        this.booksList = Main.getStore().getBooks();
 
         deleteBook.disableProperty().bind(Bindings.createBooleanBinding(() -> selectedBook.get() == null, selectedBook));
         editBook.disableProperty().bind(Bindings.createBooleanBinding(() -> selectedBook.get() == null, selectedBook));
 
         // Table setup
-        books.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            this.selectedBook.set(newValue);
-        });
+        books.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> this.selectedBook.set(newValue));
 
         // Setting cell value factories
         id.setCellValueFactory(new PropertyValueFactory<>("id"));
