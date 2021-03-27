@@ -60,12 +60,11 @@ public class Utils {
         return Main.getStore().getUsers().stream().filter(user -> user.getId().equals(id)).findFirst().orElse(null);
     }
 
+    // Tried to use Streams but im too dumb to figure it out i guess
     public static boolean bookAvailable(String id) {
-        List<History> histories = Main.getStore().getHistory().stream()
-                .filter(history -> history.getBook().getId().equals(id))
-                .filter(history -> !history.isReturned())
-                .collect(Collectors.toList());
-        System.out.println(histories.size());
-        return histories.size() != 0;
+       for (History history : Main.getStore().getHistory().stream().filter(history -> history.getBook().getId().equals(id)).collect(Collectors.toList())) {
+           if (!history.isReturned()) return false;
+       }
+       return true;
     }
 }
