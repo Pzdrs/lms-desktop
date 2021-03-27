@@ -150,15 +150,15 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "accessToken=" + accessToken +
-                ", id=" + id +
-                ", username=" + username +
-                ", email=" + email +
-                ", firstName=" + firstName +
-                ", lastName=" + lastName +
-                ", password=" + password +
-                ", isAdmin=" + isAdmin +
-                ", registeredAt=" + registeredAt +
+                "accessToken=" + getAccessToken() +
+                ", id=" + getId() +
+                ", username=" + getUsername() +
+                ", email=" + getEmail() +
+                ", firstName=" + getFirstName() +
+                ", lastName=" + getLastName() +
+                ", password=" + getPassword() +
+                ", isAdmin=" + isAdmin() +
+                ", registeredAt=" + getRegisteredAt() +
                 '}';
     }
 }

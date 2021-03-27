@@ -41,4 +41,16 @@ public class History {
     public Date getTo() {
         return to;
     }
+
+    @Override
+    public String toString() {
+        return "History{" +
+                "id='" + id + '\'' +
+                ", returned=" + returned +
+                ", book=" + book +
+                ", user=" + user +
+                ", from=" + from +
+                ", to=" + to +
+                '}';
+    }
 }

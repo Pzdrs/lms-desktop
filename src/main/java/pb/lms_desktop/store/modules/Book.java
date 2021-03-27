@@ -3,7 +3,7 @@ package pb.lms_desktop.store.modules;
 import java.util.Date;
 
 public class Book {
-    private String id, title, isbn, writtenIn;
+    private String id, title, isbn, writtenIn, fullTitle;
     private int pageCount;
     private Author author;
     private Date createdAt;
@@ -11,11 +11,20 @@ public class Book {
     public Book(String id, String title, String isbn, String writtenIn, int pageCount, Author author, Date createdAt) {
         this.id = id;
         this.title = title;
+        this.fullTitle = new StringBuilder(title)
+                .append(" (")
+                .append(writtenIn)
+                .append(")")
+                .toString();
         this.isbn = isbn;
         this.writtenIn = writtenIn;
         this.pageCount = pageCount;
         this.author = author;
         this.createdAt = createdAt;
+    }
+
+    public String getFullTitle() {
+        return fullTitle;
     }
 
     public String getId() {
