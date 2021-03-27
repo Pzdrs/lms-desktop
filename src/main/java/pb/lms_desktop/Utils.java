@@ -1,10 +1,7 @@
 package pb.lms_desktop;
 
-import com.sun.javafx.scene.control.skin.TableViewSkin;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.util.Pair;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import pb.lms_desktop.dialogs.LoginDialog;
@@ -13,12 +10,9 @@ import pb.lms_desktop.store.modules.History;
 import pb.lms_desktop.store.modules.User;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -62,9 +56,15 @@ public class Utils {
 
     // Tried to use Streams but im too dumb to figure it out i guess
     public static boolean bookAvailable(String id) {
-       for (History history : Main.getStore().getHistory().stream().filter(history -> history.getBook().getId().equals(id)).collect(Collectors.toList())) {
-           if (!history.isReturned()) return false;
-       }
-       return true;
+        for (History history : Main.getStore().getHistory().stream().filter(history -> history.getBook().getId().equals(id)).collect(Collectors.toList())) {
+            if (!history.isReturned()) return false;
+        }
+        return true;
+    }
+
+    public static String timeDiff(Date date) {
+        long diff = (new Date().getTime() - date.getTime()) / (1000 * 3600);
+        if (diff < 24) return diff + " hours";
+        return diff / 24 + " days";
     }
 }
