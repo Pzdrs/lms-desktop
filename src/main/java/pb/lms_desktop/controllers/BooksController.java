@@ -1,10 +1,14 @@
 package pb.lms_desktop.controllers;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import pb.lms_desktop.Main;
@@ -25,14 +29,31 @@ public class BooksController implements Initializable {
     public TableColumn<Book, String> id, isbn, title, author;
     public TableColumn<Book, Integer> pageCount;
     public TableColumn<Book, Date> createdAt;
+    public JFXButton addBook, editBook, deleteBook;
     private List<Book> booksList;
+    private ObjectProperty<Book> selectedBook;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Utils.initPageSize(1462);
 
+        // Responsive container sizing
+        container.prefWidthProperty().bind(Main.stage.widthProperty().subtract(16));
+        container.prefHeightProperty().bind(Main.stage.heightProperty().subtract(76));
+
+        this.selectedBook = new SimpleObjectProperty<>();
+
+        // Load books
         Main.getStore().loadBooks();
         this.booksList = Main.getStore().getBooks();
+
+        deleteBook.disableProperty().bind(Bindings.createBooleanBinding(() -> selectedBook.get() == null, selectedBook));
+        editBook.disableProperty().bind(Bindings.createBooleanBinding(() -> selectedBook.get() == null, selectedBook));
+
+        // Table setup
+        books.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            this.selectedBook.set(newValue);
+        });
 
         // Setting cell value factories
         id.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -42,17 +63,12 @@ public class BooksController implements Initializable {
         author.setCellValueFactory(param -> param.getValue().getAuthor().getFullName());
         createdAt.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
 
-        // Responsive container sizing
-        container.prefWidthProperty().bind(Main.stage.widthProperty().subtract(16));
-        container.prefHeightProperty().bind(Main.stage.heightProperty().subtract(76));
-
         resetFilters();
     }
 
     private void populate() {
         books.getItems().clear();
         booksList.forEach(book -> {
-            Utils.bookAvailable(book.getId());
             books.getItems().add(book);
         });
     }
@@ -79,12 +95,21 @@ public class BooksController implements Initializable {
     public void filterAvailable() {
         if (parameter_availableOnly.isSelected()) {
             this.booksList = this.booksList.stream()
-                    .filter(book -> !Utils.bookAvailable(book.getId()))
+                    .filter(book -> Utils.bookAvailable(book.getId()))
                     .collect(Collectors.toList());
         } else {
             resetFilters();
             return;
         }
         populate();
+    }
+
+    public void create() {
+    }
+
+    public void delete() {
+    }
+
+    public void edit() {
     }
 }
