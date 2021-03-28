@@ -1,13 +1,20 @@
-.userDetailAdmin{
+.userDetailAdmin {
     -fx-text-fill: purple;
+    -fx-font-size: 15px;
 }
 
-.userDetailUser{
-    -fx-text-fill: #a77b00;
+.userDetailUser {
+    -fx-text-fill: #f3af00;
+    -fx-font-size: 15px;
 }
 
 #navigation {
     -fx-border-style: hidden solid hidden hidden;
     -fx-border-color: black;
     -fx-border-width: 2;
+}
+
+.titled-pane:focused > .title > .arrow-button .arrow {
+    /* do not highlight the title pane arrow on focus */
+    -fx-background-color: #00818a;
 }

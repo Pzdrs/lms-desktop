@@ -1,5 +1,6 @@
 package pb.lms_desktop.controllers;
 
+import com.jfoenix.controls.JFXListView;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -83,23 +84,32 @@ public class UsersController implements Initializable {
         // Populate
         usersList.forEach(user -> {
             Label fullName = new Label(user.getFullName());
+            Label alias = new Label("also known as " + user.getUsername());
             Label idLabel = new Label("Identification:"), id = new Label(user.getId());
             Label emailLabel = new Label("Email:"), email = new Label(user.getEmail());
             Label registeredAtLabel = new Label("Registration:"), registeredAt = new Label(user.getRegisteredAt().toString());
 
             fullName.setStyle("-fx-font-weight: bold; -fx-font-size: 35px");
             fullName.getStyleClass().add(user.isAdmin() ? "userDetailAdmin" : "userDetailUser");
-
+            alias.setStyle("-fx-font-size: 20px");
             idLabel.setStyle("-fx-font-weight: bold");
             emailLabel.setStyle("-fx-font-weight: bold");
             registeredAtLabel.setStyle("-fx-font-weight: bold");
 
-            HBox idContainer = createDetailContainer(idLabel, id);
-            HBox emailContainer = createDetailContainer(emailLabel, email);
-            HBox registeredAtContainer = createDetailContainer(registeredAtLabel, registeredAt);
+            Button delete = new Button("Delete user");
+            Button edit = new Button("Edit user");
 
-            VBox detailsContainer = new VBox(createDetailContainer(fullName), new Separator(), idContainer, emailContainer, registeredAtContainer); // TODO: 3/23/2021 Optional: add action buttons
+            VBox detailsContainer = new VBox(
+                    createDetailContainer(fullName),
+                    alias,
+                    new Separator(),
+                    createDetailContainer(idLabel, id),
+                    createDetailContainer(emailLabel, email),
+                    createDetailContainer(registeredAtLabel, registeredAt),
+                    new HBox(delete, edit)); // TODO: 3/23/2021 Optional: add action buttons
             detailsContainer.setSpacing(10);
+            detailsContainer.setAlignment(Pos.TOP_CENTER);
+
             TitledPane pane = new TitledPane(user.getFullName() + "  (" + user.getUsername() + ")", detailsContainer);
             pane.getStyleClass().add(user.isAdmin() ? "userDetailAdmin" : "userDetailUser");
             users.getPanes().add(pane);

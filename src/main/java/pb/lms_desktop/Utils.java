@@ -40,8 +40,10 @@ public class Utils {
     }
 
     public static void initPageSize(double width) {
-        Main.stage.setWidth(width);
-        Main.stage.centerOnScreen();
+        if (!Main.stage.isMaximized()) {
+            Main.stage.setWidth(width);
+            Main.stage.centerOnScreen();
+        }
     }
 
     public static Date toDate(Object s) {
@@ -72,7 +74,6 @@ public class Utils {
     }
 
     public static Label timeRemaining(Date date) {
-        Label label = new Label("Due " + new SimpleDateFormat("EEEE, MMM d, yyyy HH:mm").format(date));
-        return label;
+        return new Label("Due " + new SimpleDateFormat("EEEE, MMM d, yyyy HH:mm").format(date));
     }
 }
