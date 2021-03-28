@@ -2,6 +2,7 @@ package pb.lms_desktop;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.util.Pair;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import pb.lms_desktop.dialogs.LoginDialog;
@@ -10,8 +11,10 @@ import pb.lms_desktop.store.modules.History;
 import pb.lms_desktop.store.modules.User;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -66,5 +69,10 @@ public class Utils {
         long diff = (new Date().getTime() - date.getTime()) / (1000 * 3600);
         if (diff < 24) return diff + " hours";
         return diff / 24 + " days";
+    }
+
+    public static Label timeRemaining(Date date) {
+        Label label = new Label("Due " + new SimpleDateFormat("EEEE, MMM d, yyyy HH:mm").format(date));
+        return label;
     }
 }
