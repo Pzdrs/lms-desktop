@@ -25,12 +25,12 @@
                 <Insets top="15.0" />
             </padding>
          <children>
-            <JFXButton fx:id="addBook" buttonType="RAISED" onAction="#create" prefHeight="25.0" prefWidth="100.0" style="-fx-background-color: #e8fff9; -fx-background-radius: 0;" text="Add book">
+            <JFXButton fx:id="addBook" buttonType="RAISED" onAction="#create" prefHeight="25.0" prefWidth="115.0" style="-fx-background-color: #e8fff9; -fx-background-radius: 0;" text="Add book">
                <graphic>
                   <FontAwesomeIconView fill="#03a800" glyphName="PLUS" size="17" />
                </graphic>
                <VBox.margin>
-                  <Insets bottom="10.0" />
+                  <Insets />
                </VBox.margin>
             </JFXButton>
             <Separator prefWidth="200.0" />
@@ -39,12 +39,12 @@
                   <Font size="15.0" />
                </font>
             </Label>
-            <JFXButton fx:id="deleteBook" buttonType="RAISED" onAction="#delete" prefWidth="100.0" style="-fx-background-color: #ffc9c9; -fx-background-radius: 0;" text="Delete book">
+            <JFXButton fx:id="deleteBook" buttonType="RAISED" onAction="#delete" prefWidth="115.0" style="-fx-background-color: #ffc9c9; -fx-background-radius: 0;" text="Delete book">
                <graphic>
                   <FontAwesomeIconView fill="RED" glyphName="TRASH" size="17" />
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="editBook" buttonType="RAISED" onAction="#edit" prefWidth="100.0" style="-fx-background-color: #c9d1ff; -fx-background-radius: 0;" text="Edit book">
+            <JFXButton fx:id="editBook" buttonType="RAISED" onAction="#edit" prefWidth="115.0" style="-fx-background-color: #c9d1ff; -fx-background-radius: 0;" text="Edit book">
                <graphic>
                   <FontAwesomeIconView fill="#007ba6" glyphName="EDIT" size="17" />
                </graphic>

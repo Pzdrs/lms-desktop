@@ -49,7 +49,7 @@
       </TitledPane>
    </right>
    <left>
-      <VBox id="navigation" alignment="TOP_CENTER" prefHeight="409.0" prefWidth="150.0" spacing="10.0" style="-fx-background-color: #595959;" BorderPane.alignment="CENTER">
+      <VBox id="navigation" alignment="TOP_CENTER" prefHeight="409.0" prefWidth="150.0" spacing="10.0" style="-fx-background-color: #595959;" stylesheets="@../css/authors.css" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets />
          </BorderPane.margin>

@@ -9,6 +9,7 @@ Button:hover {
     -fx-border-color: #707eff;
     -fx-border-style: hidden hidden solid hidden;
     -fx-border-width: 3;
+    -fx-cursor: hand;
 }
 
 #navbar{

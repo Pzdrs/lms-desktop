@@ -1,0 +1,5 @@
+#navigation {
+    -fx-border-style: hidden solid hidden hidden;
+    -fx-border-color: black;
+    -fx-border-width: 2;
+}
