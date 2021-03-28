@@ -16,6 +16,7 @@ import pb.lms_desktop.Utils;
 import pb.lms_desktop.store.modules.Book;
 
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -26,9 +27,8 @@ public class BooksController implements Initializable {
     public TextField parameter_filter;
     public CheckBox parameter_availableOnly;
     public TableView<Book> books;
-    public TableColumn<Book, String> id, isbn, title, author;
+    public TableColumn<Book, String> id, isbn, title, author, createdAt;
     public TableColumn<Book, Integer> pageCount;
-    public TableColumn<Book, Date> createdAt;
     public JFXButton addBook, editBook, deleteBook;
     private List<Book> booksList;
     private ObjectProperty<Book> selectedBook;
@@ -57,8 +57,8 @@ public class BooksController implements Initializable {
         isbn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
         title.setCellValueFactory(new PropertyValueFactory<>("fullTitle"));
         pageCount.setCellValueFactory(new PropertyValueFactory<>("pageCount"));
-        author.setCellValueFactory(param -> param.getValue().getAuthor().getFullName());
-        createdAt.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
+        author.setCellValueFactory(param -> param.getValue().getAuthor().fullNameProperty());
+        createdAt.setCellValueFactory(param -> new SimpleStringProperty(new SimpleDateFormat("E MMMM dd yyy hh:mm a").format(param.getValue().getCreatedAt())));
 
         resetFilters();
     }
