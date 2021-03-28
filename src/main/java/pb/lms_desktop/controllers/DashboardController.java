@@ -69,7 +69,6 @@ public class DashboardController implements Initializable {
         i = 0;
         // My borrows
         for (History history : Main.getStore().getHistory()) {
-            System.out.println(i);
             if (i == 5) break;
             Label book = new Label(history.getBook().getTitle());
             Label author = new Label("by " + history.getBook().getAuthor().getFullName());

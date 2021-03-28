@@ -1,7 +1,9 @@
 package pb.lms_desktop.controllers;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -96,8 +98,19 @@ public class UsersController implements Initializable {
             emailLabel.setStyle("-fx-font-weight: bold");
             registeredAtLabel.setStyle("-fx-font-weight: bold");
 
-            Button delete = new Button("Delete user");
-            Button edit = new Button("Edit user");
+            JFXButton delete = new JFXButton("Delete user");
+            delete.setStyle("-fx-background-color: #ff5f5f");
+            JFXButton edit = new JFXButton("Edit user");
+            edit.setStyle("-fx-background-color: #00ccff");
+
+            delete.setOnAction(event -> deleteUser(user.getId()));
+
+            edit.setOnAction(event -> editUser(user.getId()));
+
+            HBox actions = new HBox(delete, edit);
+            actions.setAlignment(Pos.CENTER);
+            actions.setSpacing(10);
+            VBox.setMargin(actions, new Insets(25, 0, 0, 0));
 
             VBox detailsContainer = new VBox(
                     createDetailContainer(fullName),
@@ -106,13 +119,23 @@ public class UsersController implements Initializable {
                     createDetailContainer(idLabel, id),
                     createDetailContainer(emailLabel, email),
                     createDetailContainer(registeredAtLabel, registeredAt),
-                    new HBox(delete, edit)); // TODO: 3/23/2021 Optional: add action buttons
+                    actions); // TODO: 3/23/2021 Optional: add action buttons
             detailsContainer.setSpacing(10);
             detailsContainer.setAlignment(Pos.TOP_CENTER);
 
             TitledPane pane = new TitledPane(user.getFullName() + "  (" + user.getUsername() + ")", detailsContainer);
             pane.getStyleClass().add(user.isAdmin() ? "userDetailAdmin" : "userDetailUser");
+            pane.setAlignment(Pos.TOP_CENTER);
+
             users.getPanes().add(pane);
         });
+    }
+
+    private void deleteUser(String id) {
+        System.out.println(id);
+    }
+
+    private void editUser(String id) {
+        System.out.println(id);
     }
 }
