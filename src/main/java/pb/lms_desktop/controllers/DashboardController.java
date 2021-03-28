@@ -47,23 +47,41 @@ public class DashboardController implements Initializable {
         // Bind first name to the welcome message
         user.textProperty().bind(Bindings.createStringBinding(() -> Main.getStore().getUser().getFirstName() + ".", Main.getStore().getUser().firstNameProperty()));
 
+        // Latest borrows
         int i = 0;
         for (History history : Main.getStore().getHistory()) {
             if (i == 5) break;
-            if (history.getUser().getId().equals(Main.getStore().getUser().getId()))
-                myBorrows.getChildren().add(new Label(history.getUser().getFullName()));
-
-            Label whenWho = new Label(Utils.timeDiff(history.getFrom()) + " ago by " + history.getUser().getFirstName());
             Label book = new Label(history.getBook().getTitle());
+            Label whenWho = new Label(Utils.timeDiff(history.getFrom()) + " ago by " + history.getUser().getFirstName());
+            Label author = new Label("by " + history.getBook().getAuthor().getFullName());
 
             book.setStyle("-fx-font-weight: bold");
             whenWho.setStyle("-fx-text-fill: green");
 
-            VBox latest = new VBox(book, new Label("by " + history.getBook().getAuthor().getFullName()), whenWho);
-            VBox.setMargin(latest, new Insets(15, 0, 0, 0));
+            VBox vBox = new VBox(book, author, whenWho);
+            vBox.setAlignment(Pos.TOP_CENTER);
+            VBox.setMargin(vBox, new Insets(15, 0, 0, 0));
 
-            latest.setAlignment(Pos.TOP_CENTER);
-            latestBorrows.getChildren().add(latest);
+            latestBorrows.getChildren().add(vBox);
+            i++;
+        }
+
+        i = 0;
+        // My borrows
+        for (History history : Main.getStore().getHistory()) {
+            System.out.println(i);
+            if (i == 5) break;
+            Label book = new Label(history.getBook().getTitle());
+            Label author = new Label("by " + history.getBook().getAuthor().getFullName());
+
+            book.setStyle("-fx-font-weight: bold");
+
+            VBox vBox = new VBox(book, author, Utils.timeRemaining(history.getTo()));
+            vBox.setAlignment(Pos.TOP_CENTER);
+            VBox.setMargin(vBox, new Insets(15, 0, 0, 0));
+
+            if (history.getUser().getId().equals(Main.getStore().getUser().getId()))
+                myBorrows.getChildren().add(vBox);
             i++;
         }
     }

@@ -1,6 +1,5 @@
 package pb.lms_desktop.controllers;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -14,7 +13,6 @@ import pb.lms_desktop.store.modules.User;
 
 import java.net.URL;
 import java.util.List;
-import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
