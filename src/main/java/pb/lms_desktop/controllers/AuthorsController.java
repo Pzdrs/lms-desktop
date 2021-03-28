@@ -18,6 +18,7 @@ import pb.lms_desktop.Utils;
 import pb.lms_desktop.store.modules.Author;
 
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -55,11 +56,11 @@ public class AuthorsController implements Initializable {
         id.setCellValueFactory(new PropertyValueFactory<>("id"));
         firstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         lastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-        born.setCellValueFactory(new PropertyValueFactory<>("born"));
+        born.setCellValueFactory(param -> new SimpleStringProperty(new SimpleDateFormat("dd MMM yyy").format(param.getValue().getBorn())));
         died.setCellValueFactory(param -> {
             // Make sure there is no empty cell when the author is still alive to this day
             if (param.getValue().getDied() == null) return new SimpleStringProperty("Hasn't died yet");
-            return new SimpleStringProperty(param.getValue().getDied().toString());
+            return new SimpleStringProperty(new SimpleDateFormat("dd MMM yyy").format(param.getValue().getDied()));
         });
 
         resetFilters();
