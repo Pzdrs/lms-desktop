@@ -60,7 +60,9 @@ public class Utils {
 
     // Tried to use Streams but im too dumb to figure it out i guess
     public static boolean bookAvailable(String id) {
-        for (History history : Main.getStore().getHistory().stream().filter(history -> history.getBook().getId().equals(id)).collect(Collectors.toList())) {
+        for (History history : Main.getStore().getHistory().stream()
+                .filter(history -> history.getBook() != null)
+                .filter(history -> history.getBook().getId().equals(id)).collect(Collectors.toList())) {
             if (!history.isReturned()) return false;
         }
         return true;
@@ -83,12 +85,21 @@ public class Utils {
         return null;
     }
 
-    public static Alert createAlert(Alert.AlertType alertType, String message, String title, String header) {
+    public static Alert createAlert(Alert.AlertType alertType, String message, String title, String header, ButtonType... buttonTypes) {
         Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
+        if (title != null) alert.setTitle(title);
+        if (header != null) alert.setHeaderText(header);
         if (message != null) alert.setContentText(message);
+        if (buttonTypes.length != 0) alert.getButtonTypes().addAll(buttonTypes);
         return alert;
+    }
+
+    public static void createErrorAlert(String message) {
+        createAlert(Alert.AlertType.ERROR, null, null, message).show();
+    }
+
+    public static void createInfoAlert(String message, String title) {
+        createAlert(Alert.AlertType.INFORMATION, null, title, message).show();
     }
 
     public static boolean createConfirmationAlert(String message) {
@@ -96,5 +107,11 @@ public class Utils {
         alert.setHeaderText(message);
         alert.showAndWait();
         return alert.getResult() == ButtonType.YES;
+    }
+
+    public static Label createInputLabel(String text) {
+        Label label = new Label(text);
+        label.setStyle("-fx-font-weight: bold");
+        return label;
     }
 }
