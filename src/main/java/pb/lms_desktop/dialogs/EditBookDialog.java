@@ -56,8 +56,7 @@ public class EditBookDialog extends Dialog<Book> {
     }
 
     private void init() {
-        setTitle("Editing book " + book.getTitle());
-        setResizable(true);
+        setTitle("Editing " + book.getTitle());
 
         ButtonType done = new ButtonType("Done", ButtonBar.ButtonData.OK_DONE);
         ButtonType close = new ButtonType("Close", ButtonBar.ButtonData.CANCEL_CLOSE);
@@ -81,8 +80,15 @@ public class EditBookDialog extends Dialog<Book> {
 
         this.author = new JFXComboBox<>(authors);
 
-        this.container = new VBox(title, isbn, writtenIn, pageCount, author);
+        this.container = new VBox(
+                Utils.createInputLabel("Title:"), title,
+                Utils.createInputLabel("ISBN:"), isbn,
+                Utils.createInputLabel("Year of writing"), writtenIn,
+                Utils.createInputLabel("Number of pages:"), pageCount,
+                Utils.createInputLabel("Author:"), author);
         container.setAlignment(Pos.TOP_CENTER);
+        container.setSpacing(20);
+        container.setPrefWidth(450);
 
         getDialogPane().setContent(container);
     }

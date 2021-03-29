@@ -6,6 +6,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.util.Pair;
+import org.json.JSONObject;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import pb.lms_desktop.dialogs.LoginDialog;
 import pb.lms_desktop.store.modules.Author;
@@ -113,5 +114,23 @@ public class Utils {
         Label label = new Label(text);
         label.setStyle("-fx-font-weight: bold");
         return label;
+    }
+
+    public static Author getAuthorById(String id) {
+        for (Author author : Main.getStore().getAuthors()) {
+            if (author.getId().equals(id)) return author;
+        }
+        return null;
+    }
+
+    public static Book parseJSONToBook(String json) {
+        JSONObject book = new JSONObject(json).getJSONObject("book");
+        return new Book(book.getString("_id"),
+                book.getString("title"),
+                book.getString("isbn"),
+                book.getString("writtenIn"),
+                book.getInt("pageCount"),
+                getAuthorById(book.getString("author")),
+                toDate(book.getString("createdAt")));
     }
 }

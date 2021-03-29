@@ -13,6 +13,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import org.apache.http.HttpResponse;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONObject;
+import pb.lms_desktop.API;
 import pb.lms_desktop.Main;
 import pb.lms_desktop.Utils;
 import pb.lms_desktop.dialogs.CreateBookDialog;
@@ -111,7 +113,21 @@ public class BooksController implements Initializable {
 
     public void create() {
         Optional<Book> result = new CreateBookDialog().showAndWait();
-        result.ifPresent(System.out::println);
+        result.ifPresent(book -> {
+            try {
+                HttpResponse response = Main.getApi().post("/books",
+                        new BasicNameValuePair("title", book.getTitle()),
+                        new BasicNameValuePair("isbn", book.getIsbn()),
+                        new BasicNameValuePair("writtenIn", book.getWrittenIn()),
+                        new BasicNameValuePair("pageCount", Integer.toString(book.getPageCount())),
+                        new BasicNameValuePair("author", book.getAuthor().getId()));
+                Main.getStore().getBooks().add(Utils.parseJSONToBook(API.asText(response.getEntity().getContent())));
+                resetFilters();
+                Utils.createInfoAlert("Book successfully created", "Book created");
+            } catch (IOException e) {
+                Utils.createErrorAlert("Couldn't create new book, please try again later");
+            }
+        });
     }
 
     public void delete(Book book) {

@@ -48,6 +48,10 @@ public class Store {
         return history;
     }
 
+    public ObservableList<User> getUsers() {
+        return users;
+    }
+
     public void setUser(User user) {
         this.user = user;
 
@@ -58,10 +62,6 @@ public class Store {
 
     public User getUser() {
         return user;
-    }
-
-    public ObservableList<User> getUsers() {
-        return users;
     }
 
     public void loadBooks() {
@@ -76,7 +76,7 @@ public class Store {
                             book.getString("isbn"),
                             book.getString("writtenIn"),
                             book.getInt("pageCount"),
-                            getAuthorById(book.getString("author")),
+                            Utils.getAuthorById(book.getString("author")),
                             Utils.toDate(book.getString("createdAt"))
                     ));
                 });
@@ -111,11 +111,6 @@ public class Store {
         }
     }
 
-    public void reLoadAuthors() {
-        authors.clear();
-        loadAuthors();
-    }
-
     public void loadHistory() {
         loadUsers();
         loadBooks();
@@ -137,11 +132,6 @@ public class Store {
                 System.out.println("Couldn't load the history");
             }
         }
-    }
-
-    public void reLoadHistory() {
-        history.clear();
-        loadHistory();
     }
 
     public void loadUsers() {
@@ -171,12 +161,5 @@ public class Store {
     public void reLoadUsers() {
         users.clear();
         loadUsers();
-    }
-
-    public Author getAuthorById(String id) {
-        for (Author author : this.authors) {
-            if (author.getId().equals(id)) return author;
-        }
-        return null;
     }
 }
