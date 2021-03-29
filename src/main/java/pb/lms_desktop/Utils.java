@@ -2,10 +2,13 @@ package pb.lms_desktop;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.util.Pair;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import pb.lms_desktop.dialogs.LoginDialog;
+import pb.lms_desktop.store.modules.Author;
 import pb.lms_desktop.store.modules.Book;
 import pb.lms_desktop.store.modules.History;
 import pb.lms_desktop.store.modules.User;
@@ -22,10 +25,6 @@ import java.util.stream.Collectors;
 public class Utils {
     public static Parent loadFXML(String fxml) throws IOException {
         return FXMLLoader.load(Main.class.getResource("/scenes/" + fxml + ".fxml"));
-    }
-
-    public static Parent loadPartialFXML(String fxml) throws IOException {
-        return FXMLLoader.load(Main.class.getResource("/partials/" + fxml + ".fxml"));
     }
 
     public static boolean checkPassword(String password) {
@@ -75,5 +74,27 @@ public class Utils {
 
     public static Label timeRemaining(Date date) {
         return new Label("Due " + new SimpleDateFormat("EEEE, MMM d, yyyy HH:mm").format(date));
+    }
+
+    public static Author getAuthorByName(String fullName) {
+        for (Author author : Main.getStore().getAuthors()) {
+            if (author.getFullName().equals(fullName)) return author;
+        }
+        return null;
+    }
+
+    public static Alert createAlert(Alert.AlertType alertType, String message, String title, String header) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        if (message != null) alert.setContentText(message);
+        return alert;
+    }
+
+    public static boolean createConfirmationAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, null, ButtonType.YES, ButtonType.NO);
+        alert.setHeaderText(message);
+        alert.showAndWait();
+        return alert.getResult() == ButtonType.YES;
     }
 }

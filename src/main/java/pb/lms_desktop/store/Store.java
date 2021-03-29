@@ -86,6 +86,11 @@ public class Store {
         }
     }
 
+    public void reLoadBook() {
+        books.clear();
+        loadBooks();
+    }
+
     public void loadAuthors() {
         if (this.authors.size() == 0) {
             try {
@@ -104,6 +109,11 @@ public class Store {
                 System.out.println("Couldn't load the authors");
             }
         }
+    }
+
+    public void reLoadAuthors() {
+        authors.clear();
+        loadAuthors();
     }
 
     public void loadHistory() {
@@ -129,6 +139,11 @@ public class Store {
         }
     }
 
+    public void reLoadHistory() {
+        history.clear();
+        loadHistory();
+    }
+
     public void loadUsers() {
         if (this.users.size() == 0) {
             try {
@@ -151,6 +166,11 @@ public class Store {
                 System.out.println("Couldn't load the users");
             }
         }
+    }
+
+    public void reLoadUsers() {
+        users.clear();
+        loadUsers();
     }
 
     public Author getAuthorById(String id) {

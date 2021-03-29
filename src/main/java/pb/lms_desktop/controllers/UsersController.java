@@ -1,7 +1,8 @@
 package pb.lms_desktop.controllers;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -9,9 +10,12 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import pb.lms_desktop.Main;
 import pb.lms_desktop.Utils;
+import pb.lms_desktop.dialogs.EditBookDialog;
+import pb.lms_desktop.store.modules.Book;
 import pb.lms_desktop.store.modules.User;
 
 import java.net.URL;
@@ -103,9 +107,9 @@ public class UsersController implements Initializable {
             JFXButton edit = new JFXButton("Edit user");
             edit.setStyle("-fx-background-color: #00ccff");
 
-            delete.setOnAction(event -> deleteUser(user.getId()));
+            delete.setOnAction(event -> deleteUser(user));
 
-            edit.setOnAction(event -> editUser(user.getId()));
+            edit.setOnAction(event -> editUser(user));
 
             HBox actions = new HBox(delete, edit);
             actions.setAlignment(Pos.CENTER);
@@ -131,11 +135,10 @@ public class UsersController implements Initializable {
         });
     }
 
-    private void deleteUser(String id) {
-        System.out.println(id);
+    private void deleteUser(User user) {
     }
 
-    private void editUser(String id) {
-        System.out.println(id);
+    private void editUser(User user) {
+
     }
 }

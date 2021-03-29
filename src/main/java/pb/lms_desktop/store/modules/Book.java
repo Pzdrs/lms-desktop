@@ -23,6 +23,26 @@ public class Book {
         this.createdAt = createdAt;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public void setWrittenIn(String writtenIn) {
+        this.writtenIn = writtenIn;
+    }
+
+    public void setPageCount(int pageCount) {
+        this.pageCount = pageCount;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
+
     public String getFullTitle() {
         return fullTitle;
     }

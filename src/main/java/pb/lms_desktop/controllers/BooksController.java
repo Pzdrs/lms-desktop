@@ -11,14 +11,19 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import org.apache.http.HttpResponse;
+import org.apache.http.message.BasicNameValuePair;
 import pb.lms_desktop.Main;
 import pb.lms_desktop.Utils;
+import pb.lms_desktop.dialogs.EditBookDialog;
 import pb.lms_desktop.store.modules.Book;
 
+import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
@@ -48,6 +53,8 @@ public class BooksController implements Initializable {
 
         deleteBook.disableProperty().bind(Bindings.createBooleanBinding(() -> selectedBook.get() == null, selectedBook));
         editBook.disableProperty().bind(Bindings.createBooleanBinding(() -> selectedBook.get() == null, selectedBook));
+        editBook.setOnAction(event -> edit(selectedBook.get()));
+        deleteBook.setOnAction(event -> delete(selectedBook.get()));
 
         // Table setup
         books.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> this.selectedBook.set(newValue));
@@ -104,9 +111,33 @@ public class BooksController implements Initializable {
     public void create() {
     }
 
-    public void delete() {
+    public void delete(Book book) {
+        if (Utils.createConfirmationAlert("Are you sure you want to delete this book?")) {
+            System.out.println(" je to gone");
+        } else {
+            System.out.println("we good");
+        }
     }
 
-    public void edit() {
+    public void edit(Book book) {
+        EditBookDialog dialog = new EditBookDialog(book);
+        Optional<Book> result = dialog.showAndWait();
+        result.ifPresent(newBook -> {
+            try {
+                Main.getApi().patch("/books/" + book.getId(),
+                        new BasicNameValuePair("title", newBook.getTitle()),
+                        new BasicNameValuePair("isbn", newBook.getIsbn()),
+                        new BasicNameValuePair("writtenIn", newBook.getWrittenIn()),
+                        new BasicNameValuePair("pageCount", Integer.toString(newBook.getPageCount())),
+                        new BasicNameValuePair("author", newBook.getAuthor().getId()));
+
+                Main.getStore().getBooks().set(Main.getStore().getBooks().indexOf(book), newBook);
+                resetFilters();
+
+                Utils.createAlert(Alert.AlertType.CONFIRMATION, null, "Success", "Book edited successfully").show();
+            } catch (IOException e) {
+                new Alert(Alert.AlertType.ERROR, "Couldn't edit this book, please try again later").show();
+            }
+        });
     }
 }
