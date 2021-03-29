@@ -15,6 +15,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.message.BasicNameValuePair;
 import pb.lms_desktop.Main;
 import pb.lms_desktop.Utils;
+import pb.lms_desktop.dialogs.CreateBookDialog;
 import pb.lms_desktop.dialogs.EditBookDialog;
 import pb.lms_desktop.store.modules.Book;
 
@@ -49,7 +50,7 @@ public class BooksController implements Initializable {
         this.selectedBook = new SimpleObjectProperty<>();
 
         // Load books
-        Main.getStore().loadBooks();
+        Main.getStore().loadHistory();
 
         deleteBook.disableProperty().bind(Bindings.createBooleanBinding(() -> selectedBook.get() == null, selectedBook));
         editBook.disableProperty().bind(Bindings.createBooleanBinding(() -> selectedBook.get() == null, selectedBook));
@@ -109,13 +110,20 @@ public class BooksController implements Initializable {
     }
 
     public void create() {
+        Optional<Book> result = new CreateBookDialog().showAndWait();
+        result.ifPresent(System.out::println);
     }
 
     public void delete(Book book) {
         if (Utils.createConfirmationAlert("Are you sure you want to delete this book?")) {
-            System.out.println(" je to gone");
-        } else {
-            System.out.println("we good");
+            try {
+                Main.getApi().delete("/books/" + book.getId());
+                Main.getStore().getBooks().remove(book);
+                resetFilters();
+                Utils.createInfoAlert("Book successfully deleted", "Book deleted");
+            } catch (IOException e) {
+                Utils.createErrorAlert("Couldn't delete this book, please try again later");
+            }
         }
     }
 
@@ -134,9 +142,9 @@ public class BooksController implements Initializable {
                 Main.getStore().getBooks().set(Main.getStore().getBooks().indexOf(book), newBook);
                 resetFilters();
 
-                Utils.createAlert(Alert.AlertType.CONFIRMATION, null, "Success", "Book edited successfully").show();
+                Utils.createInfoAlert("Book successfully edited", "Book edited");
             } catch (IOException e) {
-                new Alert(Alert.AlertType.ERROR, "Couldn't edit this book, please try again later").show();
+                Utils.createErrorAlert("Couldn't edit this book, please try again later");
             }
         });
     }
