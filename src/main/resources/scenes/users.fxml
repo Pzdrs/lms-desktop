@@ -15,7 +15,7 @@
     <left>
         <VBox id="navigation" alignment="TOP_CENTER" prefHeight="475.0" prefWidth="150.0" spacing="10.0" style="-fx-background-color: #595959;" BorderPane.alignment="CENTER">
             <children>
-            <JFXButton style="-fx-background-color: #e8fff9; -fx-background-radius: 0;" text="Add user">
+            <JFXButton onAction="#addUser" style="-fx-background-color: #e8fff9; -fx-background-radius: 0;" text="Add user">
                <graphic>
                   <FontAwesomeIconView fill="#03a800" glyphName="PLUS" size="17" />
                </graphic>

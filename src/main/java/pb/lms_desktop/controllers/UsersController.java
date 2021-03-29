@@ -14,12 +14,14 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import pb.lms_desktop.Main;
 import pb.lms_desktop.Utils;
+import pb.lms_desktop.dialogs.CreateUserDialog;
 import pb.lms_desktop.dialogs.EditBookDialog;
 import pb.lms_desktop.store.modules.Book;
 import pb.lms_desktop.store.modules.User;
 
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
@@ -55,7 +57,12 @@ public class UsersController implements Initializable {
     }
 
     public void addUser() {
-        // TODO: 3/23/2021 add user button
+        Optional<User> result = new CreateUserDialog().showAndWait();
+        result.ifPresent(user -> {
+            Main.getStore().getUsers().add(user);
+            resetFilters();
+            Utils.createInfoAlert("New user created successfully", "User created");
+        });
     }
 
     public void resetFilters() {

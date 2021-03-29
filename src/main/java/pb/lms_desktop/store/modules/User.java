@@ -1,13 +1,9 @@
 package pb.lms_desktop.store.modules;
 
-import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import org.apache.http.HttpHeaders;
-import org.apache.http.message.BasicHeader;
-import pb.lms_desktop.Main;
 
 import java.util.Date;
 

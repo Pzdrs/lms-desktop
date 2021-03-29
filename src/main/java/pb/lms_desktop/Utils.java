@@ -133,4 +133,16 @@ public class Utils {
                 getAuthorById(book.getString("author")),
                 toDate(book.getString("createdAt")));
     }
+
+    public static User parseJSONToUser(String json) {
+        JSONObject user = new JSONObject(json).getJSONObject("user");
+        return new User(null, user.getString("_id"),
+                user.getString("username"),
+                user.getString("email"),
+                user.getString("firstName"),
+                user.getString("lastName"),
+                user.getString("password"),
+                user.getBoolean("isAdmin"),
+                Utils.toDate(user.get("registeredAt")));
+    }
 }
