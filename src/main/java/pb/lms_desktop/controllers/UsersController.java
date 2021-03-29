@@ -130,7 +130,7 @@ public class UsersController implements Initializable {
                     createDetailContainer(idLabel, id),
                     createDetailContainer(emailLabel, email),
                     createDetailContainer(registeredAtLabel, registeredAt),
-                    actions); // TODO: 3/23/2021 Optional: add action buttons
+                    actions);
             detailsContainer.setSpacing(10);
             detailsContainer.setAlignment(Pos.TOP_CENTER);
 
@@ -143,9 +143,10 @@ public class UsersController implements Initializable {
     }
 
     private void deleteUser(User user) {
+        // TODO: 3/30/2021 tomorrow
     }
 
     private void editUser(User user) {
-
+        // TODO: 3/30/2021 tomorrow
     }
 }
