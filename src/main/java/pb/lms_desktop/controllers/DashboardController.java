@@ -5,9 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
-import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.json.JSONObject;
 import pb.lms_desktop.API;
@@ -25,11 +23,14 @@ public class DashboardController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         Utils.initPageSize(1280);
 
         // Responsive container sizing
         container.prefWidthProperty().bind(Main.stage.widthProperty());
         container.prefHeightProperty().bind(Main.stage.heightProperty());
+
+        if (Main.getStore().getUser() == null) return;
 
         Main.getStore().loadHistory();
 

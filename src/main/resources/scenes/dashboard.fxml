@@ -59,12 +59,12 @@
         <Separator prefWidth="200.0" />
         <HBox alignment="CENTER" spacing="2.0">
             <children>
-                <Label text="Welcome back,">
+                <Label>
                     <font>
                         <Font size="20.0" />
                     </font>
                 </Label>
-                <Label fx:id="user" text="Username">
+                <Label fx:id="user">
                     <font>
                         <Font size="20.0" />
                     </font>

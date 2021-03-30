@@ -44,15 +44,6 @@ public class LoginDialog extends Dialog<Pair<Boolean, Pair<String, String>>> {
         this.username = new TextField();
         this.password = new PasswordField();
 
-        // Prefill login dialog to make the development easier
-        try {
-            List<String> credentials = Files.lines(new File("creds.txt").toPath()).collect(Collectors.toList());
-            username.setText(credentials.get(0).split(",")[0]);
-            password.setText(credentials.get(0).split(",")[1]);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         this.usernameLabel = new Label("Username");
         this.passwordLabel = new Label("Password");
         this.resultLabel = new Label();

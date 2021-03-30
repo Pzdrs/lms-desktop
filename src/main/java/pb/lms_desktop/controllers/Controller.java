@@ -3,6 +3,7 @@ package pb.lms_desktop.controllers;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import pb.lms_desktop.Main;
 import pb.lms_desktop.Utils;
 
 import java.net.URL;
