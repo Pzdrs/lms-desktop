@@ -13,14 +13,24 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import org.apache.http.HttpResponse;
+import org.apache.http.message.BasicNameValuePair;
+import pb.lms_desktop.API;
 import pb.lms_desktop.Main;
 import pb.lms_desktop.Utils;
+import pb.lms_desktop.dialogs.CreateAuthorDialog;
+import pb.lms_desktop.dialogs.CreateBookDialog;
+import pb.lms_desktop.dialogs.CreateUserDialog;
 import pb.lms_desktop.store.modules.Author;
+import pb.lms_desktop.store.modules.Book;
+import pb.lms_desktop.store.modules.User;
 
 import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
@@ -126,5 +136,11 @@ public class AuthorsController implements Initializable {
     }
 
     public void create() {
+        Optional<Author> result = new CreateAuthorDialog().showAndWait();
+        result.ifPresent(author -> {
+            Main.getStore().getAuthors().add(author);
+            resetFilters();
+            Utils.createInfoAlert("New author created successfully", "Author created");
+        });
     }
 }

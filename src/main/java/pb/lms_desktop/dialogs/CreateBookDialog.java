@@ -82,7 +82,7 @@ public class CreateBookDialog extends Dialog<Book> {
         this.container = new VBox(
                 Utils.createInputLabel("Title:"), title,
                 Utils.createInputLabel("ISBN:"), isbn,
-                Utils.createInputLabel("Year of writing"), writtenIn,
+                Utils.createInputLabel("Year of writing:"), writtenIn,
                 Utils.createInputLabel("Number of pages:"), pageCount,
                 Utils.createInputLabel("Author:"), author);
         container.setAlignment(Pos.TOP_CENTER);

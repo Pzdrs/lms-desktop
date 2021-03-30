@@ -143,6 +143,18 @@ public class Utils {
                 user.getString("lastName"),
                 user.getString("password"),
                 user.getBoolean("isAdmin"),
-                Utils.toDate(user.get("registeredAt")));
+                toDate(user.get("registeredAt")));
+    }
+
+    public static Author parseJSONToAuthor(String json) {
+        JSONObject author = new JSONObject(json).getJSONObject("author");
+        return new Author(
+                author.getString("_id"),
+                author.getString("firstName"),
+                author.getString("lastName"),
+                toDate(author.get("born")),
+                toDate(author.get("died")),
+                toDate(author.get("createdAt"))
+        );
     }
 }
