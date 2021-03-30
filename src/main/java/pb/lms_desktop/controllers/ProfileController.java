@@ -123,8 +123,8 @@ public class ProfileController implements Initializable {
     }
 
     public void logout() {
-        // TODO: 3/22/2021 store refresh tokens and handle clientside
         Main.getStore().setUser(null);
+        Main.getController().changeContent("dashboard");
         Main.getStore().getMain().startup();
     }
 

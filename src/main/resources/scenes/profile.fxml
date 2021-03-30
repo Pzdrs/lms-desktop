@@ -98,12 +98,12 @@
                 <Insets />
             </VBox.margin>
          <children>
-            <JFXButton buttonType="RAISED" prefWidth="255.0" ripplerFill="#2c1414" styleClass="dangerButton" text="Log out" textFill="#ff2323">
+            <JFXButton buttonType="RAISED" onAction="#logout" prefWidth="255.0" ripplerFill="#2c1414" styleClass="dangerButton" text="Log out" textFill="#ff2323">
                <graphic>
                   <FontAwesomeIconView fill="RED" glyphName="SIGN_OUT" />
                </graphic>
             </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="183.0" layoutY="10.0" prefWidth="255.0" ripplerFill="#2c1414" styleClass="dangerButton" text="Close my account" textFill="#ff2323">
+            <JFXButton buttonType="RAISED" layoutX="183.0" layoutY="10.0" onAction="#deleteAccount" prefWidth="255.0" ripplerFill="#2c1414" styleClass="dangerButton" text="Close my account" textFill="#ff2323">
                <graphic>
                   <FontAwesomeIconView fill="RED" glyphName="TRASH" />
                </graphic>
