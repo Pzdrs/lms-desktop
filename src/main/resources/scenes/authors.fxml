@@ -68,12 +68,12 @@
                   <Font size="15.0" />
                </font>
             </Label>
-            <JFXButton fx:id="deleteAuthor" buttonType="RAISED" onAction="#delete" prefWidth="115.0" style="-fx-background-color: #ffc9c9; -fx-background-radius: 0;" text="Delete author">
+            <JFXButton fx:id="deleteAuthor" buttonType="RAISED" prefWidth="115.0" style="-fx-background-color: #ffc9c9; -fx-background-radius: 0;" text="Delete author">
                <graphic>
                   <FontAwesomeIconView fill="RED" glyphName="TRASH" size="17" />
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="editAuthor" buttonType="RAISED" onAction="#edit" prefWidth="115.0" style="-fx-background-color: #c9d1ff; -fx-background-radius: 0;" text="Edit author">
+            <JFXButton fx:id="editAuthor" buttonType="RAISED" prefWidth="115.0" style="-fx-background-color: #c9d1ff; -fx-background-radius: 0;" text="Edit author">
                <graphic>
                   <FontAwesomeIconView fill="#007ba6" glyphName="EDIT" size="17" />
                </graphic>

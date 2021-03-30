@@ -17,6 +17,7 @@ import pb.lms_desktop.Main;
 import pb.lms_desktop.Utils;
 import pb.lms_desktop.store.modules.Author;
 
+import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -49,6 +50,8 @@ public class AuthorsController implements Initializable {
 
         deleteAuthor.disableProperty().bind(Bindings.createBooleanBinding(() -> selectedAuthor.get() == null, selectedAuthor));
         editAuthor.disableProperty().bind(Bindings.createBooleanBinding(() -> selectedAuthor.get() == null, selectedAuthor));
+        deleteAuthor.setOnAction(event -> delete(selectedAuthor.get()));
+        editAuthor.setOnAction(event -> edit(selectedAuthor.get()));
 
         // Table setup
         authors.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> this.selectedAuthor.set(newValue));
@@ -105,12 +108,23 @@ public class AuthorsController implements Initializable {
         populate();
     }
 
-    public void delete() {
+    public void delete(Author author) {
+        if (Utils.createConfirmationAlert("Are you sure you want to delete this author?")) {
+            try {
+                Main.getApi().delete("/authors/" + author.getId());
+                Main.getStore().getAuthors().remove(author);
+                resetFilters();
+                Utils.createInfoAlert("Author successfully deleted", "Author deleted");
+            } catch (IOException e) {
+                Utils.createErrorAlert("Couldn't delete this author, please try again later");
+            }
+        }
     }
 
-    public void edit() {
+    public void edit(Author author) {
+
     }
 
-    public void create(ActionEvent actionEvent) {
+    public void create() {
     }
 }
