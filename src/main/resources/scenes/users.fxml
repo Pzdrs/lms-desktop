@@ -6,6 +6,7 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -52,6 +53,10 @@
         </VBox>
     </right>
     <center>
-        <Accordion fx:id="users" BorderPane.alignment="CENTER" />
+      <ScrollPane fx:id="scrollPane" fitToWidth="true">
+         <content>
+              <Accordion fx:id="users" />
+         </content>
+      </ScrollPane>
     </center>
 </BorderPane>

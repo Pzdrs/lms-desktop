@@ -3,6 +3,7 @@ package pb.lms_desktop.controllers;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
+import com.sun.javafx.scene.control.skin.TitledPaneSkin;
 import javafx.collections.FXCollections;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -31,6 +32,7 @@ import java.util.stream.Collectors;
 
 public class UsersController implements Initializable {
     public BorderPane container;
+    public ScrollPane scrollPane;
     public Accordion users;
     public TextField parameter_filter;
     public CheckBox parameter_adminsOnly;
@@ -42,6 +44,8 @@ public class UsersController implements Initializable {
 
         container.prefWidthProperty().bind(Main.stage.widthProperty().subtract(16));
         container.prefHeightProperty().bind(Main.stage.heightProperty().subtract(76));
+
+        users.prefWidthProperty().bind(scrollPane.widthProperty().subtract(2));
 
         Main.getStore().loadUsers();
         this.usersList = Main.getStore().getUsers();
@@ -139,6 +143,15 @@ public class UsersController implements Initializable {
             detailsContainer.setAlignment(Pos.TOP_CENTER);
 
             TitledPane pane = new TitledPane(user.getFullName() + "  (" + user.getUsername() + ")", detailsContainer);
+            // Scroll pane shenanigans
+            pane.expandedProperty().addListener((observable, oldValue, newValue) -> {
+                users.prefWidthProperty().unbind();
+                if (newValue) {
+                    users.setPrefWidth(scrollPane.getWidth() - 16);
+                } else {
+                    users.setPrefWidth(scrollPane.getWidth());
+                }
+            });
             pane.getStyleClass().add(user.isAdmin() ? "userDetailAdmin" : "userDetailUser");
             pane.setAlignment(Pos.TOP_CENTER);
 
