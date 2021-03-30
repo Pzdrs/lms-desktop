@@ -18,9 +18,7 @@ import org.apache.http.message.BasicNameValuePair;
 import pb.lms_desktop.API;
 import pb.lms_desktop.Main;
 import pb.lms_desktop.Utils;
-import pb.lms_desktop.dialogs.CreateAuthorDialog;
-import pb.lms_desktop.dialogs.CreateBookDialog;
-import pb.lms_desktop.dialogs.CreateUserDialog;
+import pb.lms_desktop.dialogs.*;
 import pb.lms_desktop.store.modules.Author;
 import pb.lms_desktop.store.modules.Book;
 import pb.lms_desktop.store.modules.User;
@@ -132,7 +130,23 @@ public class AuthorsController implements Initializable {
     }
 
     public void edit(Author author) {
-
+        Optional<Author> result = new EditAuthorDialog(author).showAndWait();
+        result.ifPresent(author1 -> {
+            try {
+                HttpResponse response = Main.getApi().patch("/authors/" + author.getId(),
+                        new BasicNameValuePair("firstName", author1.getFirstName()),
+                        new BasicNameValuePair("lastName", author1.getLastName()),
+                        new BasicNameValuePair("born", String.valueOf(author1.getBorn().getTime())),
+                        new BasicNameValuePair("died", String.valueOf(author1.getDied().getTime())));
+                if (response.getStatusLine().getStatusCode() == 200) {
+                    Main.getStore().getAuthors().set(Main.getStore().getAuthors().indexOf(author), author1);
+                    resetFilters();
+                    Utils.createInfoAlert("Author successfully edited", "Author edited");
+                }
+            } catch (IOException e) {
+                Utils.createErrorAlert("Couldn't edit this author, please try again later");
+            }
+        });
     }
 
     public void create() {
