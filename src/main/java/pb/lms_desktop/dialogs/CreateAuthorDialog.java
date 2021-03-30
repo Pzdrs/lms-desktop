@@ -41,7 +41,7 @@ public class CreateAuthorDialog extends Dialog<Author> {
                     new BasicNameValuePair("firstName", firstName.getText()),
                     new BasicNameValuePair("lastName", lastName.getText()),
                     new BasicNameValuePair("born", born.getValue().toString()),
-                    new BasicNameValuePair("died", died.getValue().toString()));
+                    new BasicNameValuePair("died", died.getValue() == null ? null : died.getValue().toString()));
             this.newAuthor = Utils.parseJSONToAuthor(API.asText(response.getEntity().getContent()));
         } catch (IOException e) {
             Utils.createErrorAlert("Couldn't add new author, please try again later");
@@ -52,7 +52,7 @@ public class CreateAuthorDialog extends Dialog<Author> {
 
     private boolean validate() {
         if (firstName.getText().isEmpty() ||
-                lastName.getText().isEmpty() || born.getValue() == null || died.getValue() == null) {
+                lastName.getText().isEmpty() || born.getValue() == null) {
             Utils.createErrorAlert("Some of the fields are not filled in");
             return false;
         }
