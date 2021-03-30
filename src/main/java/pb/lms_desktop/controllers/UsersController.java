@@ -3,6 +3,7 @@ package pb.lms_desktop.controllers;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
+import javafx.collections.FXCollections;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,17 +13,20 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import org.apache.http.HttpResponse;
+import org.apache.http.message.BasicNameValuePair;
 import pb.lms_desktop.Main;
 import pb.lms_desktop.Utils;
 import pb.lms_desktop.dialogs.CreateUserDialog;
 import pb.lms_desktop.dialogs.EditBookDialog;
+import pb.lms_desktop.dialogs.EditUserDialog;
 import pb.lms_desktop.store.modules.Book;
 import pb.lms_desktop.store.modules.User;
 
+import java.io.IOException;
+import java.lang.reflect.Field;
 import java.net.URL;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class UsersController implements Initializable {
@@ -147,6 +151,20 @@ public class UsersController implements Initializable {
     }
 
     private void editUser(User user) {
-        // TODO: 3/30/2021 tomorrow
+        Optional<User> result = new EditUserDialog(user).showAndWait();
+        result.ifPresent(user1 -> {
+            try {
+                HttpResponse response = Main.getApi().patch("/users/"+user.getId(), new BasicNameValuePair("firstName",user1.getFirstName()),
+                        new BasicNameValuePair("lastName",user1.getLastName()),
+                        new BasicNameValuePair("email",user1.getEmail()));
+                if (response.getStatusLine().getStatusCode() == 200){
+                    Main.getStore().getUsers().set(Main.getStore().getUsers().indexOf(user), user1);
+                    resetFilters();
+                    Utils.createInfoAlert("User successfully edited", "User edited");
+                }
+            } catch (IOException e) {
+                Utils.createErrorAlert("Couldn't edit this user, please try again later");
+            }
+        });
     }
 }

@@ -25,6 +25,19 @@ public class User {
         this.registeredAt = registeredAt;
     }
 
+    public User(User user) {
+        this.accessToken = user.accessToken;
+        this.id = user.id;
+        this.username = user.username;
+        this.email = user.email;
+        this.firstName = user.firstName;
+        this.lastName = user.lastName;
+        this.fullName = user.fullName;
+        this.password = user.password;
+        this.isAdmin = user.isAdmin;
+        this.registeredAt = user.registeredAt;
+    }
+
     public String getFullName() {
         return fullName.get();
     }
