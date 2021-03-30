@@ -14,6 +14,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.message.BasicNameValuePair;
 import pb.lms_desktop.API;
 import pb.lms_desktop.Main;
@@ -119,7 +120,7 @@ public class AuthorsController implements Initializable {
     public void delete(Author author) {
         if (Utils.createConfirmationAlert("Are you sure you want to delete this author?")) {
             try {
-                Main.getApi().delete("/authors/" + author.getId());
+                Main.getApi().delete("/authors/" + author.getId()).close();
                 Main.getStore().getAuthors().remove(author);
                 resetFilters();
                 Utils.createInfoAlert("Author successfully deleted", "Author deleted");
@@ -133,7 +134,7 @@ public class AuthorsController implements Initializable {
         Optional<Author> result = new EditAuthorDialog(author).showAndWait();
         result.ifPresent(author1 -> {
             try {
-                HttpResponse response = Main.getApi().patch("/authors/" + author.getId(),
+                CloseableHttpResponse response = Main.getApi().patch("/authors/" + author.getId(),
                         new BasicNameValuePair("firstName", author1.getFirstName()),
                         new BasicNameValuePair("lastName", author1.getLastName()),
                         new BasicNameValuePair("born", String.valueOf(author1.getBorn().getTime())),
@@ -143,6 +144,7 @@ public class AuthorsController implements Initializable {
                     resetFilters();
                     Utils.createInfoAlert("Author successfully edited", "Author edited");
                 }
+                response.close();
             } catch (IOException e) {
                 Utils.createErrorAlert("Couldn't edit this author, please try again later");
             }

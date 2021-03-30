@@ -9,6 +9,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.layout.VBox;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.message.BasicNameValuePair;
 import pb.lms_desktop.API;
 import pb.lms_desktop.Main;
@@ -37,12 +38,13 @@ public class CreateAuthorDialog extends Dialog<Author> {
 
     private boolean createAuthor() {
         try {
-            HttpResponse response = Main.getApi().post("/authors",
+            CloseableHttpResponse response = Main.getApi().post("/authors",
                     new BasicNameValuePair("firstName", firstName.getText()),
                     new BasicNameValuePair("lastName", lastName.getText()),
                     new BasicNameValuePair("born", born.getValue().toString()),
                     new BasicNameValuePair("died", died.getValue() == null ? null : died.getValue().toString()));
             this.newAuthor = Utils.parseJSONToAuthor(API.asText(response.getEntity().getContent()));
+            response.close();
         } catch (IOException e) {
             Utils.createErrorAlert("Couldn't add new author, please try again later");
             return false;

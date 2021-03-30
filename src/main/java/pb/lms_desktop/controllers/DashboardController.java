@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.json.JSONObject;
 import pb.lms_desktop.API;
 import pb.lms_desktop.Main;
@@ -34,12 +35,13 @@ public class DashboardController implements Initializable {
 
         // Statistics
         try {
-            HttpResponse statistics = Main.getApi().get("/statistics");
+            CloseableHttpResponse statistics = Main.getApi().get("/statistics");
             JSONObject statisticsObject = new JSONObject(API.asText(statistics.getEntity().getContent())).getJSONObject("statistics");
 
             booksTotal.setText(String.valueOf(statisticsObject.getInt("booksTotal")));
             booksInUse.setText(String.valueOf(statisticsObject.getInt("booksInUse")));
             users.setText(String.valueOf(statisticsObject.getInt("users")));
+            statistics.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

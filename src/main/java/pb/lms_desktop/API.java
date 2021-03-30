@@ -7,6 +7,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.*;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class API {
-    private HttpClient client;
+    private CloseableHttpClient client;
     private String baseURL;
 
     public API(String baseURL) {
@@ -31,25 +32,25 @@ public class API {
         this.client = HttpClients.custom().setDefaultHeaders(Arrays.asList(headers)).build();
     }
 
-    public HttpResponse get(String s) throws IOException {
+    public CloseableHttpResponse get(String s) throws IOException {
         return client.execute(new HttpGet(baseURL + s));
     }
 
-    public HttpResponse post(String s, BasicNameValuePair... data) throws IOException {
+    public CloseableHttpResponse post(String s, BasicNameValuePair... data) throws IOException {
         HttpPost req = new HttpPost(baseURL + s);
         req.setEntity(new UrlEncodedFormEntity(new ArrayList<>(Arrays.asList(data)), StandardCharsets.UTF_8));
         return client.execute(req);
     }
 
-    public HttpResponse delete(String s) throws IOException {
+    public CloseableHttpResponse delete(String s) throws IOException {
         return client.execute(new HttpDelete(baseURL + s));
     }
 
-    public HttpResponse put(String s) throws IOException {
+    public CloseableHttpResponse put(String s) throws IOException {
         return client.execute(new HttpPut(baseURL + s));
     }
 
-    public HttpResponse patch(String s, BasicNameValuePair... data) throws IOException {
+    public CloseableHttpResponse patch(String s, BasicNameValuePair... data) throws IOException {
         HttpPatch req = new HttpPatch(baseURL + s);
         req.setEntity(new UrlEncodedFormEntity(new ArrayList<>(Arrays.asList(data)), StandardCharsets.UTF_8));
         return client.execute(req);
@@ -57,7 +58,7 @@ public class API {
 
     public Pair<Integer, String> deleteUser(String id) {
         try {
-            HttpResponse response = delete("/users/" + id);
+            CloseableHttpResponse response = delete("/users/" + id);
             return new Pair<>(response.getStatusLine().getStatusCode(), asText(response.getEntity().getContent()));
         } catch (IOException e) {
             e.printStackTrace();
@@ -67,7 +68,7 @@ public class API {
 
     public Pair<Integer, String> changeUserProperty(String key, String value) {
         try {
-            HttpResponse response = patch("/users/" + Main.getStore().getUser().getId(), new BasicNameValuePair(key, value));
+            CloseableHttpResponse response = patch("/users/" + Main.getStore().getUser().getId(), new BasicNameValuePair(key, value));
             return new Pair<>(response.getStatusLine().getStatusCode(), asText(response.getEntity().getContent()));
         } catch (IOException e) {
             e.printStackTrace();
@@ -77,7 +78,7 @@ public class API {
 
     public Pair<Integer, String> login(String username, String password) {
         try {
-            HttpResponse response = post("/auth/login",
+            CloseableHttpResponse response = post("/auth/login",
                     new BasicNameValuePair("username", username),
                     new BasicNameValuePair("password", password));
             return new Pair<>(response.getStatusLine().getStatusCode(), asText(response.getEntity().getContent()));
