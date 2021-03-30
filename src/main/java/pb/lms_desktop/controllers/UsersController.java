@@ -147,17 +147,23 @@ public class UsersController implements Initializable {
     }
 
     private void deleteUser(User user) {
-        // TODO: 3/30/2021 tomorrow
+        if (Utils.createConfirmationAlert("Are you sure you want to delete this user?")) {
+            if (Main.getApi().deleteUser(user.getId()).getKey() == 200) {
+                Main.getStore().getUsers().remove(user);
+                resetFilters();
+                Utils.createInfoAlert("User " + user.getFullName() + " successfully deleted", "User deleted");
+            }
+        }
     }
 
     private void editUser(User user) {
         Optional<User> result = new EditUserDialog(user).showAndWait();
         result.ifPresent(user1 -> {
             try {
-                HttpResponse response = Main.getApi().patch("/users/"+user.getId(), new BasicNameValuePair("firstName",user1.getFirstName()),
-                        new BasicNameValuePair("lastName",user1.getLastName()),
-                        new BasicNameValuePair("email",user1.getEmail()));
-                if (response.getStatusLine().getStatusCode() == 200){
+                HttpResponse response = Main.getApi().patch("/users/" + user.getId(), new BasicNameValuePair("firstName", user1.getFirstName()),
+                        new BasicNameValuePair("lastName", user1.getLastName()),
+                        new BasicNameValuePair("email", user1.getEmail()));
+                if (response.getStatusLine().getStatusCode() == 200) {
                     Main.getStore().getUsers().set(Main.getStore().getUsers().indexOf(user), user1);
                     resetFilters();
                     Utils.createInfoAlert("User successfully edited", "User edited");
