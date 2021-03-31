@@ -48,7 +48,7 @@ public class DashboardController implements Initializable {
         }
 
         // Bind first name to the welcome message
-        user.textProperty().bind(Bindings.createStringBinding(() -> Main.getStore().getUser().getFirstName() + ".", Main.getStore().getUser().firstNameProperty()));
+        user.textProperty().bind(Bindings.createStringBinding(() -> ", " + Main.getStore().getUser().getFirstName() + ".", Main.getStore().getUser().firstNameProperty()));
 
         // Latest borrows
         int i = 0;
