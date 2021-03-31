@@ -59,7 +59,7 @@
         <Separator prefWidth="200.0" />
         <HBox alignment="CENTER" spacing="2.0">
             <children>
-                <Label>
+                <Label text="Welcome back">
                     <font>
                         <Font size="20.0" />
                     </font>
